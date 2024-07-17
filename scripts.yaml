@@ -1,0 +1,351 @@
+lineage2:
+  alias: lineage2
+  sequence:
+  - service: media_extractor.play_media
+    data:
+      media_content_id: https://www.youtube.com/watch?v=am36QHp-TgQ
+      media_content_type: PLAYLIST MUSIC
+    target:
+      entity_id: media_player.nestcasa
+  mode: single
+  icon: mdi:microsoft-xbox-controller
+'0':
+  alias: '0'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '0'
+  mode: single
+'1':
+  alias: '1'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '1'
+  mode: single
+'2':
+  alias: '2'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '2'
+  mode: single
+'3':
+  alias: '3'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '3'
+  mode: single
+'4':
+  alias: '4'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '4'
+  mode: single
+'5':
+  alias: '5'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '5'
+  mode: single
+'6':
+  alias: '6'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '6'
+  mode: single
+'7':
+  alias: '7'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '7'
+  mode: single
+'8':
+  alias: '8'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '8'
+  mode: single
+'9':
+  alias: '9'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '9'
+  mode: single
+back:
+  alias: BACK
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: BACK
+campainha:
+  alias: Campainha
+  sequence:
+  - service: media_player.play_media
+    data:
+      media_content_id: http://192.168.1.15:8123/local/audio/1.mp3
+      media_content_type: Music
+    target:
+      entity_id: media_player.nestcasa
+  mode: single
+  icon: mdi:bell
+coxa:
+  alias: Coxa
+  sequence:
+  - service: media_extractor.play_media
+    data:
+      media_content_id: https://www.youtube.com/watch?v=6uO2piDtDNo
+      media_content_type: MUSIC
+    target:
+      entity_id: media_player.nestcasa
+  mode: single
+  icon: mdi:soccer
+tv_lg_pause:
+  alias: Tv lg pause
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: PAUSE
+  mode: single
+  icon: mdi:pause
+tv_lg_play:
+  alias: Tv lg play
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: PLAY
+  mode: single
+  icon: mdi:play
+tv_lg_enter:
+  alias: Tv lg enter
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: ENTER
+  mode: single
+  icon: mdi:circle
+tv_lg_home:
+  alias: Tv lg home
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: HOME
+  mode: single
+  icon: mdi:home-circle
+tv_lg_up:
+  alias: Tv lg up
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: UP
+  mode: single
+  icon: mdi:arrow-up-bold-box
+tv_lg_down:
+  alias: Tv lg down
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: DOWN
+  mode: single
+  icon: mdi:arrow-down-bold-box
+tv_lg_left:
+  alias: Tv lg left
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: LEFT
+  mode: single
+  icon: mdi:arrow-left-bold-box
+tv_lg_right:
+  alias: Tv lg right
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: RIGHT
+  mode: single
+  icon: mdi:arrow-right-bold-box
+tv_lg_channelup:
+  alias: Tv lg channelup
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: CHANNELUP
+  mode: single
+  icon: mdi:arrow-up-bold-outline
+tv_lg_channeldown:
+  alias: Tv lg channeldown
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: CHANNELDOWN
+  mode: single
+  icon: mdi:arrow-down-bold-outline
+tv_lg_mute:
+  alias: Tv lg mute
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: MUTE
+  mode: single
+  icon: mdi:music-off
+tv_lg_voldown:
+  alias: Tv lg voldown
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: VOLUMEDOWN
+  mode: single
+  icon: mdi:arrow-down-thin-circle-outline
+tv_lg_volup:
+  alias: Tv lg volup
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: VOLUMEUP
+  mode: single
+  icon: mdi:arrow-up-thin-circle-outline
+tv_lg_info:
+  alias: Tv lg info
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: INFO
+  mode: single
+  icon: mdi:information
+tv_lg_exit:
+  alias: Tv lg exit
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: EXIT
+  mode: single
+  icon: mdi:exit-to-app
+tv_lg_dash:
+  alias: Tv lg dash
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: DASH
+  mode: single
+  icon: mdi:square-circle-outline
+tv_lg_back:
+  alias: Tv lg back
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: BACK
+  mode: single
+  icon: mdi:arrow-u-left-top-bold
+tv_lg_menu:
+  alias: Tv lg menu
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: MENU
+  mode: single
+  icon: mdi:menu
+fotorua:
+  alias: FotoRua
+  sequence:
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/rua/{{(as_timestamp(now().isoformat()) | float)
+        | timestamp_custom('%Y_%m_%d/%H_%M_%S')}}.jpg
+    target:
+      entity_id: camera.rua
+    enabled: true
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/rua/LastSnap.jpg
+    target:
+      entity_id: camera.rua
+  mode: single
+  icon: mdi:camera
+fotogaragem:
+  alias: FotoGaragem
+  sequence:
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/garagem/{{(as_timestamp(now().isoformat()) | float)
+        | timestamp_custom('%Y_%m_%d/%H_%M_%S')}}.jpg
+    target:
+      entity_id: camera.garagem_mainstream
+    enabled: true
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/garagem/LastSnap.jpg
+    target:
+      entity_id: camera.garagem_mainstream
+  mode: single
+  icon: mdi:camera
+superman:
+  alias: Superman
+  sequence:
+  - service: media_extractor.play_media
+    data:
+      media_content_id: https://www.youtube.com/watch?v=78N2SP6JFaI
+      media_content_type: MUSIC
+    target:
+      entity_id: media_player.nestcasa
+  mode: single
+  icon: mdi:heart-pulse
+fotovaranda:
+  alias: FotoVaranda
+  sequence:
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/varanda/{{(as_timestamp(now().isoformat()) | float)
+        | timestamp_custom('%Y_%m_%d/%H_%M_%S')}}.jpg
+    target:
+      entity_id: camera.varanda_mainstream
+    enabled: true
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/varanda/LastSnap.jpg
+    target:
+      entity_id:
+      - camera.varanda_mainstream
+  mode: single
+  icon: mdi:camera

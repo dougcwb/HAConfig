@@ -1,0 +1,39 @@
+  purge_keep_days: 14
+  commit_interval: 2
+  db_retry_wait: 15
+  #db_url: !secret dburl 
+  db_url: !secret dburlpostgresql
+  exclude:
+    domains:
+      - automation
+      - updater
+    entities:
+      - sensor.date
+      - camera.local_file
+      - sensor.time
+      - sensor.date_time
+      - sensor.date_time_iso
+      - binary_sensor.workday_sensor
+    entity_globs:
+      - switch.tv_*
+      - switch.sb_*
+      - switch.led_*
+      - sensor.weather_*
+      - weather.*
+      - sensor.*xiaomi*
+      - sensor.*miwifi*
+      - device_tracker.miwf_*
+      - sensor.*days_consumption
+#      - binary_sensor.rn8*
+#      - sensor.rn8*
+#      - sensor.redmi*
+#      - input_select.*
+    event_types:
+      - call_service # Don't record service calls
+      - service_removed
+      - service_executed
+      - service_registered
+      - platform_discovered
+#      - homeassistant_start
+      - feedreader
+      - component_loaded

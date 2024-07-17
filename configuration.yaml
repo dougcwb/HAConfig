@@ -1,0 +1,30 @@
+# Loads default set of integrations. Do not remove.
+automation: !include automations.yaml
+default_config:
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+google_assistant: !include extras/google_assistant.yaml
+group: !include extras/grupos.yaml
+http:
+  server_port: 8123
+homeassistant:
+  whitelist_external_dirs:
+    - '/config/www/'
+    - '/var/lib/'
+input_boolean: !include extras/input_boolean.yaml
+input_select: !include extras/input_select.yaml
+light: !include extras/luzes.yaml
+logger: !include extras/logger.yaml
+media_extractor: #https://www.home-assistant.io/integrations/media_extractor/
+media_player: !include extras/media.yaml
+notify: !include extras/notify.yaml
+recorder: !include extras/recorder.yaml
+scene: !include extras/scenes.yaml
+script: !include scripts.yaml
+sensor: !include extras/sensors.yaml
+smartir:
+stream:
+switch: !include extras/switches.yaml
+wake_on_lan:
+websocket_api:

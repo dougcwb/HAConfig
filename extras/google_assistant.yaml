@@ -1,0 +1,12 @@
+  project_id: !secret ga_project_id
+  api_key: !secret ga_api_key
+  #report_state: true
+  exposed_domains: #Lista de domínios de entidades a serem expostos ao Google Assistant
+    - climate
+  entity_config: #Configuração específica da entidade para o Google Assistant
+    light.todas_as_luzes:
+      name: Todas as Luzes
+    light.copa:
+      name: Copa
+    light.spots:
+      name: Spots

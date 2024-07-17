@@ -1,0 +1,26 @@
+# FODLERS
+backups
+blueprints
+custom_components
+deps
+tts
+www
+
+# FILES
+.bash_history
+.cache
+.cloud
+.local
+.storage
+.shopping_list.json
+
+# DATABASES
+*.db
+
+# SECRETS
+secrets.yaml
+
+# LOGS
+*.log
+*.log.fault
+*.log.1

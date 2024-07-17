@@ -1,0 +1,205 @@
+- id: '1610827749600'
+  name: Festa
+  entities:
+    light.pendentes:
+      restored: true
+      supported_color_modes:
+      - onoff
+      icon: mdi:triangle-outline
+      friendly_name: Pendentes Cozinha
+      supported_features: 0
+      state: unavailable
+    light.spots_sala:
+      supported_color_modes:
+      - onoff
+      icon: mdi:square-medium-outline
+      friendly_name: Spots Sala
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    light.spots_jantar:
+      supported_color_modes:
+      - onoff
+      icon: mdi:square-medium-outline
+      friendly_name: Spots Jantar
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    light.spots_cozinha:
+      supported_color_modes:
+      - onoff
+      icon: mdi:square-medium-outline
+      friendly_name: Spots Cozinha
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    light.corredor:
+      supported_color_modes:
+      - onoff
+      icon: mdi:road-variant
+      friendly_name: Corredor
+      supported_features: 0
+      state: 'off'
+    light.lustre:
+      supported_color_modes:
+      - onoff
+      icon: mdi:vanity-light
+      friendly_name: Lustre
+      supported_features: 0
+      state: unavailable
+    light.jantar:
+      supported_color_modes:
+      - onoff
+      icon: mdi:silverware-variant
+      friendly_name: Jantar
+      supported_features: 0
+      state: 'off'
+    light.cozinha:
+      supported_color_modes:
+      - onoff
+      icon: mdi:food
+      friendly_name: Cozinha
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    light.escada:
+      supported_color_modes:
+      - onoff
+      icon: mdi:stairs
+      friendly_name: Escada
+      supported_features: 0
+      state: 'off'
+    input_select.ytube_music_player_playlist:
+      options:
+      - Your Likes
+      - Disco
+      - Extromodos
+      - Feel-Good Indie Folk
+      - Heavy Industry
+      - LowMetal
+      - MAX BASS TESTS?!
+      - Melodic Metalcore
+      - Metal Hotlist
+      - New Rock 2020
+      - NU Metal
+      - Nu Metal Revolution
+      - Nu-Metal Classics
+      - Pop, Rock, Relax
+      - Rock de Estrada
+      - Slow Metal
+      - Thrash Metal Shred
+      - TOP NUMETAL
+      - 'Y2K Rock! '
+      editable: false
+      icon: mdi:playlist-music
+      friendly_name: Playlist
+      state: Your Likes
+    media_player.ytube_music_player:
+      remote_player_state: playing
+      likeStatus: LIKE
+      current_playlist_title: '''00s Rock'
+      videoId: BLZWkjBXfN8
+      _media_type: playlist
+      _media_id: RDCLAK5uy_keb_mIiClglpMd5ycINvnTwCkoIu5Ce3k
+      current_track: 16
+      remote_player_id: media_player.nest
+      icon: mdi:music-circle
+      friendly_name: ytube_music_player - LIKE
+      supported_features: 450495
+      volume_level: 0.5
+      is_volume_muted: true
+      media_content_type: music
+      shuffle: true
+      repeat: all
+      media_title: In the End
+      media_artist: Linkin Park
+      media_album_name: ''
+      entity_picture_local: /api/media_player_proxy/media_player.ytube_music_player?token=e24ef02c30316a8a7d68ee4b59d440a2a66826a764e02dfad3701cdefaffc37b&cache=46121cdf9b4ea4c6
+      entity_picture: https://lh3.googleusercontent.com/lkNJVMp3siDfSw_zVYj3tE6fQS7G6Gj2gzoxrIwS7K4TwqmL_uSBb9-PKACNLIP_7XLQib4tC5XwWbpD=w544-h544-l90-rj
+      media_position: 1.138983
+      media_position_updated_at: '2023-01-18T19:19:05.182258+00:00'
+      media_duration: 216.933333
+      state: playing
+    input_select.ytube_music_player_speakers:
+      options:
+      - ''
+      - youtube_music
+      - samsung_un40f5500
+      - mopidy
+      - nest
+      editable: false
+      icon: mdi:speaker
+      friendly_name: Auto Falantes
+      state: nest
+    input_boolean.ytube_music_player_playcontinuous:
+      editable: false
+      icon: mdi:animation-play
+      friendly_name: Reprodução Contínua
+      state: 'on'
+    input_select.ytube_music_player_source:
+      options:
+      - Playlist Radio
+      - Playlist
+      editable: false
+      icon: mdi:music-box-multiple
+      friendly_name: Fonte
+      state: Playlist Radio
+  icon: mdi:party-popper
+  metadata: {}
+- id: '1610828101784'
+  name: Dormir
+  entities:
+    light.todas_as_luzes:
+      supported_color_modes:
+      - rgb
+      - white
+      icon: mdi:lightbulb-group
+      friendly_name: Todas as Luzes
+      supported_features: 36
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - random
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      entity_id:
+      - light.atico
+      - light.arandela
+      - light.banheiro
+      - light.cozinha
+      - light.corredor
+      - light.escada
+      - light.frente
+      - light.fundos
+      - light.garagem
+      - light.icaro
+      - light.jantar
+      - light.lavanderia
+      - light.teto
+      - light.lustre
+      - light.pendentes
+      - light.postes
+      - light.casal
+      - light.spots_cozinha
+      - light.spots_jantar
+      - light.spots_estar
+      - light.varanda
+      state: 'off'
+  icon: mdi:sleep
+  metadata: {}

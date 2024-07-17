@@ -1,0 +1,4 @@
+  - platform: ytube_music_player
+    name: Youtube Music
+    speakers:
+      - nestcasa

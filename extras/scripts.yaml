@@ -1,0 +1,109 @@
+'0':
+  alias: '0'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '0'
+  mode: single
+'1':
+  alias: '1'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '1'
+  mode: single
+'2':
+  alias: '2'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '2'
+  mode: single
+'3':
+  alias: '3'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '3'
+  mode: single
+'4':
+  alias: '4'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '4'
+  mode: single
+'5':
+  alias: '5'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '5'
+  mode: single
+'6':
+  alias: '6'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '6'
+  mode: single
+'7':
+  alias: '7'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '7'
+  mode: single
+'8':
+  alias: '8'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '8'
+  mode: single
+'9':
+  alias: '9'
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: '9'
+  mode: single
+back:
+  alias: BACK
+  sequence:
+  - service: webostv.button
+    data:
+      entity_id: media_player.lg_webos_smart_tv
+      button: BACK
+campainha:
+  alias: Campainha
+  sequence:
+  - service: media_player.play_media
+    data:
+      media_content_id: http://192.168.1.15:8123/local/audio/1.mp3
+      media_content_type: Music
+    target:
+      entity_id: media_player.nestcasa
+  mode: single
+  icon: mdi:bell
+coxa:
+  alias: Coxa
+  sequence:
+  - service: media_extractor.play_media
+    data:
+      media_content_id: https://www.youtube.com/watch?v=6uO2piDtDNo
+      media_content_type: MUSIC
+    target:
+      entity_id: media_player.nestcasa
+  mode: single
+  icon: mdi:soccer

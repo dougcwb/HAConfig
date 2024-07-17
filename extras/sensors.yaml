@@ -1,0 +1,49 @@
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_iso'      
+
+  - platform: template
+    sensors:
+      moon_phases:
+        #entity_id: sensor.moon_fase
+        icon_template: >-
+          {{state_attr("sensor.moon", "icon")}}
+        friendly_name: 'Fase da Lua'
+        value_template: >-
+          {% set phases = {'first_quarter': 'Crescente 🌓', 
+                           'full_moon': 'Lua Cheia 🌕',
+                           'last_quarter': 'Minguante 🌗', 
+                           'new_moon': 'Lua Nova 🌑',
+                           'waning_crescent': 'Minguante 🌘', 
+                           'waning_gibbous': 'Minguante 🌖',
+                           'waxing_crescent': 'Crescente 🌒', 
+                           'waxing_gibbous': 'Crescente 🌔'} %}
+          {% set phase = states('sensor.moon_fase') %}
+          {{ phases[phase] if phase in phases.keys() else 'Error' }}   
+
+  - platform: history_stats
+    name: LGTV Hoje
+    entity_id: media_player.lg_webos_smart_tv
+    state: 'on'
+    type: time
+    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: LGTV Ontem
+    entity_id: media_player.lg_webos_smart_tv
+    state: 'on'
+    type: time
+    end: '{{ now().replace(hour=0, minute=0, second=0) }}'
+    duration:
+      hours: 24
+# Históricos e estatísticas do Portão
+  - platform: history_stats
+    name: Portao Hoje
+    entity_id: binary_sensor.portao
+    state: 'on'
+    type: count
+    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+    end: '{{ now() }}'

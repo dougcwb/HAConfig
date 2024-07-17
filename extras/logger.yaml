@@ -1,0 +1,4 @@
+# LOGGER
+  default: warning
+  logs:
+    custom_components.webrtc: debug

@@ -1,0 +1,19 @@
+  - name: ALL_DEVICES
+    platform: group
+    services:
+      - service: mobile_app_rn8p
+      - service: mobile_app_xrn12pp
+      - service: mobile_app_rn12pp
+      - service: mobile_app_rn12pju
+
+  - name: doug
+    platform: group
+    services:
+      - service: mobile_app_rn8p
+      - service: mobile_app_rn12pp
+      - service: mobile_app_xrn12pp
+      
+  - name: ju
+    platform: group
+    services:
+      - service: mobile_app_rn12pju

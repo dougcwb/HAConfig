@@ -1,0 +1,944 @@
+- id: '1714674909934'
+  alias: Acende luzes ao chegar em casa
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.portao
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  - platform: state
+    entity_id:
+    - light.todas_as_luzes
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 32
+      seconds: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: light.luzes_internas
+      for:
+        hours: 0
+        minutes: 15
+        seconds: 0
+      state: 'off'
+    - condition: state
+      entity_id: media_player.lg_webos_smart_tv
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 15
+        seconds: 0
+    - condition: state
+      entity_id: light.luzes_do_quintal
+      state: 'on'
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.spots
+      - light.corredor
+  mode: single
+- id: '1714689031964'
+  alias: 'Alerta: Campainha'
+  description: Campainha do portão notifica e toca no nest
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: ee576ee7d1c52e536880175f0000a98b
+    entity_id: 85be26fd8cab7461f75324b4b7c9055d
+    domain: switch
+  condition:
+  - condition: time
+    after: '18:15:00'
+    before: '18:00:00'
+    enabled: false
+  action:
+  - if:
+    - condition: time
+      after: 07:00:00
+      before: '22:00:00'
+    - condition: time
+      after: '18:15:00'
+      before: '18:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sun
+      - sat
+    then:
+    - type: turn_on
+      device_id: 35df59a7154c445c4b442974abf2af8a
+      entity_id: 3c327933a0057dac05b895d14710ec03
+      domain: switch
+    - service: script.campainha
+      metadata: {}
+      data: {}
+  - service: script.campainha
+    data: {}
+    enabled: false
+  - service: script.fotorua
+    metadata: {}
+    data: {}
+  - service: camera.snapshot
+    metadata: {}
+    data:
+      filename: /config/www/camera/snap_{{states('sensor.date')}}/{{states('sensor.time')}}.jpg
+    target:
+      entity_id: camera.rua
+    enabled: false
+  - data:
+      data:
+        clickAction: /lovelace/camera
+        push:
+          badge: 1
+      message: Tem alguém no portão [{{ states('sensor.time')}}]
+      title: Campainha
+    service: notify.all_devices
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.campainha
+  mode: single
+- id: '1714689346594'
+  alias: 'App: Cucko'
+  description: Tocar o cucko durante o dia
+  trigger:
+  - minutes: '00'
+    platform: time_pattern
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.visitas
+      state: 'off'
+    - condition: time
+      after: 08:00
+      before: '21:01'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: media_player.nestcasa
+      state: playing
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 2
+  action:
+  - data:
+      volume_level: 0.5
+    service: media_player.volume_set
+    target:
+      entity_id: media_player.nestcasa
+  - data_template:
+      media_content_id: http://192.168.1.15:8123/local/plugins/cucko/{{now().strftime('%I')}}.wav
+      media_content_type: audio
+    entity_id: media_player.nestcasa
+    service: media_extractor.play_media
+  mode: single
+- id: '1714689966561'
+  alias: 'App: Desliga repelente'
+  description: Desliga o repelente
+  trigger:
+  - platform: time
+    at: input_datetime.tempo_repelente
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.repelente_casal
+      - switch.repelente_icaro
+  mode: single
+- id: '1714690068220'
+  alias: 'App: Desliga umidificador'
+  description: Desliga umidificador se acima de 70% de umidade
+  trigger:
+  - above: 70
+    entity_id: sensor.sonoff_1000aede10_humidity
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    platform: numeric_state
+  condition:
+  - after: '22:00:00'
+    before: 06:00:00
+    condition: time
+    enabled: false
+  - condition: state
+    entity_id: switch.umidificador
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: switch.umidificador
+    service: switch.turn_off
+  mode: restart
+- id: '1714690111139'
+  alias: 'App: Modem desligado'
+  description: Avisa se o modem ficar desligado por mais de 30 segundos e religa
+  trigger:
+  - entity_id: switch.modem
+    for: 00:00:30
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.modem
+    service: switch.turn_on
+  - service: notify.doug
+    data:
+      message: O modem estava desligado
+      title: Caiu a internet!
+  mode: single
+- id: '1714690149518'
+  alias: 'App: Reiniciar modem'
+  description: Reinicia modem todo dia de madrugada
+  trigger:
+  - platform: time
+    at: 02:00:00
+  condition: []
+  action:
+  - service: notify.doug
+    data:
+      title: Modem reiniciando
+      message: Internet indisponível temporariamente
+  - service: switch.turn_off
+    target:
+      entity_id: switch.modem
+    data: {}
+  - wait_template: 00:00:15
+  - service: switch.turn_on
+    target:
+      entity_id: switch.modem
+    data: {}
+  mode: single
+- id: '1714690329795'
+  alias: Aquecedor liga luz do banheiro
+  description: Liga Banheiro e Pressurizador quando o Aquecedor é ligado
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.aquecedor
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 255ef4a2b303929b7e237e2f8b2d7779
+    entity_id: 16b966541f8176362aabb113ec0f2f0a
+    domain: light
+  - type: turn_on
+    device_id: 9870321af8067c62ca5b12936982aac2
+    entity_id: 958e5f0b7a03578c593be772f1aa254b
+    domain: switch
+  mode: single
+- id: '1714690476735'
+  alias: 'Botão X: Atico'
+  description: Liga as luzes do ático
+  trigger:
+  - platform: event
+    event_type: sonoff.remote
+    event_data:
+      name: x
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.luzes_do_atico
+  mode: single
+- id: '1714690527119'
+  alias: 'Botão Y: Copa'
+  description: Liga a copa
+  trigger:
+  - platform: event
+    event_type: sonoff.remote
+    event_data:
+      name: y
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.copa
+  mode: single
+- id: '1714690570951'
+  alias: 'Botão Z: Quintal'
+  description: Liga o quintal
+  trigger:
+  - platform: event
+    event_type: sonoff.remote
+    event_data:
+      name: z
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.luzes_do_quintal
+  mode: single
+- id: '1714690662895'
+  alias: 'Botão A: Quintal'
+  description: Liga o Quintal
+  trigger:
+  - platform: event
+    event_type: sonoff.remote
+    event_data:
+      name: a
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.luzes_do_quintal
+    service: light.toggle
+  mode: restart
+- id: '1714690702578'
+  alias: 'Botão B: Copa'
+  description: Liga a copa
+  trigger:
+  - platform: event
+    event_type: sonoff.remote
+    event_data:
+      name: b
+  condition: []
+  action:
+  - data: {}
+    service: light.toggle
+    target:
+      entity_id: light.copa
+  mode: restart
+- id: '1714690740394'
+  alias: 'Botão C: Atico'
+  description: Liga o Ático
+  trigger:
+  - platform: event
+    event_type: sonoff.remote
+    event_data:
+      name: c
+  condition: []
+  action:
+  - data: {}
+    service: light.toggle
+    target:
+      entity_id: light.luzes_do_atico
+  mode: restart
+- id: '1714690833260'
+  alias: 'App: Aviso Calendário'
+  description: Avisa que tem um lembrete de calendário
+  trigger:
+  - platform: calendar
+    event: start
+    offset: -0:1:0
+    entity_id: calendar.home
+  condition: []
+  action:
+  - condition: time
+    after: '22:00:00'
+    before: 07:00:00
+  - wait_for_trigger:
+    - platform: time
+      at: 07:15:00
+  - service: tts.speak
+    data:
+      cache: true
+      media_player_entity_id: media_player.nest
+      message: Você tem um lembrete do calendário.
+    target:
+      entity_id: tts.google_pt_com_br
+  - service: notify.doug
+    data:
+      message: Evento do calendário
+  mode: single
+- id: '1714691151308'
+  alias: Calendar Notifications & Actions
+  description: ''
+  use_blueprint:
+    path: Blackshome/calendar-notifications-and-actions.yaml
+    input:
+      calendar: calendar.anniversaries
+      start_action_1:
+      - service: tts.speak
+        data:
+          cache: true
+          media_player_entity_id: media_player.nestcasa
+          message: '{{ trigger.calendar_event.summary }}'
+        target:
+          entity_id: tts.google_pt_com_br
+      include_start_auto_actions:
+      - enable_start_action_1
+      include_start_action_button_confirmation: enable_start_action_button_confirmation
+- id: '1714692639512'
+  alias: 'Luz: Desliga tudo de madrugada '
+  description: 'Desliga todas as luzes de madrugada '
+  trigger:
+  - platform: time_pattern
+    hours: '00'
+    minutes: '00'
+    seconds: '00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.visitas
+    state: 'off'
+  action:
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.dormir
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.led_off
+  mode: single
+- id: '1714692806151'
+  alias: Desliga ventilador quando cai temperatura
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.sonoff_1000aede10_temperature
+    attribute: temperature
+    to: '24'
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.vent_grande
+  mode: single
+- id: '1714692879789'
+  alias: 'Luz: Ligar quintal ao apertar a campainha'
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: ee576ee7d1c52e536880175f0000a98b
+    entity_id: 85be26fd8cab7461f75324b4b7c9055d
+    domain: switch
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: time
+    after: '18:15:00'
+    before: '18:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.luzes_do_quintal
+  mode: single
+- id: '1714692983370'
+  alias: 'Luz: Acende Luzes ao abrir o portao a noite'
+  description: Ao abrir o portão à noite, acender luzes
+  trigger:
+  - entity_id:
+    - binary_sensor.portao
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.luzes_do_quintal
+  mode: single
+- id: '1714693397399'
+  alias: 'Luz: Apaga Quintal ao chegar em casa'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.portao_aberto
+    to: 'off'
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: light.luzes_do_quintal
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.visitas
+    state: 'off'
+  - condition: template
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.switch.portao.last_changed.astimezone()))
+      < 300 }}'
+  - condition: template
+    value_template: '{{ (as_timestamp(utcnow()) - as_timestamp(states.sensor.tempo_online.state))
+      > 330 }}'
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - service: light.turn_on
+    data: {}
+    target:
+      device_id: 1bf1258852bb3f09074cdd4ba088a65e
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    data: {}
+    entity_id: light.luzes_do_quintal
+  mode: restart
+- id: '1714693529482'
+  alias: 'Notificar: portão aberto'
+  description: Informa se o portão foi acionado
+  trigger:
+  - entity_id:
+    - binary_sensor.portao
+    platform: state
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  condition: []
+  action:
+  - service: tts.speak
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: Portão aberto.
+    target:
+      entity_id: tts.google_pt_com_br
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+    enabled: true
+  - data:
+      data:
+        clickAction: /lovelace/camera
+        push:
+          badge: 1
+      message: O portão foi aberto às {{states('sensor.time')}}
+    service: notify.all_devices
+  - service: script.fotorua
+    metadata: {}
+    data: {}
+  - service: script.fotogaragem
+    metadata: {}
+    data: {}
+  - service: input_datetime.set_datetime
+    metadata: {}
+    data:
+      datetime: '{{states(''sensor.date_time_iso'')}}'
+    target:
+      entity_id: input_datetime.portao_last_open
+  mode: single
+- id: '1714693592973'
+  alias: 'Luz: Teto(LED) on'
+  description: Acende o teto quando o sol se põe
+  trigger:
+  - platform: sun
+    event: sunset
+  condition:
+  - condition: state
+    entity_id: media_player.lg_webos_smart_tv
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      transition: 10
+      brightness_pct: 40
+    target:
+      entity_id: light.teto
+  mode: single
+- id: '1714693639427'
+  alias: 'Timer: Quintal 15min'
+  description: Desliga luzes do quintal em 15 minutos
+  trigger:
+  - entity_id:
+    - light.luzes_do_quintal
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.visitas
+    state: 'off'
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - data: {}
+    entity_id: light.luzes_do_quintal
+    service: light.turn_off
+  mode: restart
+- id: '1714693666101'
+  alias: 'Timer: Fundos 1h'
+  description: ''
+  trigger:
+  - entity_id: light.fundos
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.visitas
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: light.fundos
+    service: light.turn_off
+  - service: notify.all_devices
+    data:
+      message: Luz dos fundos apagada após 1h acesa
+  mode: restart
+- id: '1714693736411'
+  alias: Volume Nest
+  description: Diminui volume do Nest a noite para 3
+  trigger:
+  - platform: time_pattern
+    hours: '22'
+    seconds: '50'
+    minutes: '30'
+  condition:
+  - condition: state
+    entity_id: input_boolean.visitas
+    state: 'off'
+  action:
+  - data:
+      volume_level: 0.3
+    entity_id: media_player.nestcasa
+    service: media_player.volume_set
+  mode: single
+- id: '1714693869020'
+  alias: TVLG ligada a mais de duas horas
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.lgtv_hoje
+    above: '2'
+  condition:
+  - condition: time
+    after: 08:00
+    before: '19:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: state
+    entity_id: media_player.lg_webos_smart_tv
+    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: media_player.lg_webos_smart_tv
+      state: Live TV
+      attribute: source
+      for:
+        hours: 1
+        minutes: 0
+        seconds: 0
+    - condition: state
+      entity_id: media_player.lg_webos_smart_tv
+      attribute: source
+      state: HDMI 3
+      for:
+        hours: 1
+        minutes: 0
+        seconds: 0
+  action:
+  - service: notify.doug
+    data:
+      message: Mais de duas horas de desenho seguidas
+  - service: script.tv_lg_mute
+    data: {}
+    enabled: false
+  - service: tts.speak
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: Ícaro, já assistiu muita tela hoje. Vou desligar a TV.
+    target:
+      entity_id: tts.google_pt_com_br
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - service: media_player.turn_off
+    target:
+      entity_id: media_player.lg_webos_smart_tv
+    data: {}
+  mode: restart
+- id: '1715135646771'
+  alias: 'Desliga ventilador '
+  description: 1h30
+  trigger:
+  - platform: time
+    at: 01:30:00
+  condition: []
+  action:
+  - type: turn_off
+    device_id: bf865e85de6417df5eeedfa5a49b8edd
+    entity_id: 43ae4537fb21e52566a7afa2d5fdec4c
+    domain: fan
+  mode: single
+- id: '1715783876497'
+  alias: Fiz Cocô
+  description: Registra quando se faz cocô
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.botao_coco
+    to:
+  condition: []
+  action:
+  - service: calendar.create_event
+    metadata: {}
+    data:
+      summary: '{% set user_id = trigger.to_state.context.user_id %} {% set triggered_by
+        = (states.person | selectattr(''attributes.user_id'',''=='', user_id)) | list
+        | first or "nobody" %} {% set first_name = "System" if triggered_by == "system"
+        else state_attr(triggered_by.entity_id, "friendly_name").split()[0] %} {{
+        first_name }} fez cocô {{states(''input_select.coco'')}} às {{ states(''sensor.time'')}}'
+      description: '{{ states(''input_select.coco'')}}'
+      end_date_time: '{{ states(''sensor.date_time_iso'')}}'
+      start_date_time: '{{ (as_timestamp(now().isoformat()) - 5 * 60 | float) | timestamp_custom(''%Y-%m-%dT%H:%M:%S'')
+        }}'
+    target:
+      entity_id: calendar.coco
+  - service: notify.doug
+    metadata: {}
+    data:
+      message: '{% set user_id = trigger.to_state.context.user_id %} {% set triggered_by
+        =     (states.person | selectattr(''attributes.user_id'',''=='', user_id))
+        | list |     first or "nobody" %} {% set first_name = "System" if triggered_by
+        ==     "system" else state_attr(triggered_by.entity_id, "friendly_name").split()[0]     %}
+        {{ first_name }} fez cocô {{states(''input_select.coco'')}} às {{     states(''sensor.time'')}}'
+  mode: single
+- id: '1716130499501'
+  alias: 'Camera: Foto da Rua 5min'
+  description: Tira uma foto da rua a cada minutos
+  trigger:
+  - platform: time_pattern
+    minutes: /5
+  condition: []
+  action:
+  - service: script.fotorua
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1716167942212'
+  alias: O IP Mudou
+  description: Avisa quando o IP da casa muda
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.myip
+    to:
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - service: notify.doug
+    data:
+      message: O IP externo do servidor mudou
+      title: MeuIP
+  mode: single
+- id: '1716288287502'
+  alias: 'App: Celular Doug carregado '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.xrn12pp_battery_level
+    to: '100'
+  condition:
+  - condition: time
+    after: 07:00:00
+    before: '22:00:00'
+  action:
+  - service: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: Celular carregado
+    target:
+      entity_id: tts.google_pt_com_br
+  mode: single
+- id: '1716313053631'
+  alias: Atualização do HA disponível
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.home_assistant_versions_update_available
+    to: 'on'
+    from: 'off'
+  condition: []
+  action:
+  - service: notify.doug
+    metadata: {}
+    data:
+      message: Aviso! Atualização do HA disponível
+      title: UPDATE
+  mode: single
+- id: '1716427970514'
+  alias: 'Aviso: HA Reiniciou'
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: input_select.set_options
+    target:
+      entity_id: input_select.coco
+    data:
+      options:
+      - Líquido
+      - Mole
+      - Firme
+      - Duro
+  - service: notify.doug
+    metadata: {}
+    data:
+      message: Home Assitant reiniciou!
+      title: Aviso!
+  mode: single
+- id: '1716487227754'
+  alias: 'App: A lua mudou'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.moon_fase
+    to:
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: notify.all_devices
+    metadata: {}
+    data:
+      message: A lua mudou para {{ states.sensor.moon_phases.state }}
+      title: "\U0001F31A Olhe para o céu!"
+  mode: single
+- id: '1716998921539'
+  alias: 'Notifica: Arroz pronto'
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{states.switch.arrozeira.attributes.current_consumption < 300
+      and states.switch.arrozeira.attributes.current_consumption > 0}}'
+    enabled: false
+  - platform: numeric_state
+    entity_id:
+    - sensor.potencia_arrozeira
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+    attribute: raw_state
+    above: 0
+    below: 300
+  condition:
+  - condition: state
+    entity_id: switch.arrozeira
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  action:
+  - service: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: O Arroz está pronto
+    target:
+      entity_id: tts.google_pt_com_br
+  - type: turn_off
+    device_id: bfb6a76261235d3d4b9d890fbf715c63
+    entity_id: 93f6c0b33c962d18d8795552fde5d4af
+    domain: switch
+  mode: single
+- id: '1717855323595'
+  alias: 'Camera: Foto Varanda Quando Movimento'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.varanda_cell_motion_detection
+    to: 'on'
+  condition: []
+  action:
+  - service: script.fotovaranda
+    data: {}
+  mode: single
+- id: '1720570111386'
+  alias: Liga pressurizador para lavar roupa
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.lava_roupas
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 9870321af8067c62ca5b12936982aac2
+    entity_id: 958e5f0b7a03578c593be772f1aa254b
+    domain: switch
+  mode: single
