@@ -5,6 +5,7 @@ custom_components
 deps
 tts
 www
+image
 
 # FILES
 .bash_history
