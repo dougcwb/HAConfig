@@ -349,3 +349,235 @@ fotovaranda:
       - camera.varanda_mainstream
   mode: single
   icon: mdi:camera
+action_fechar_portao:
+  alias: 'Action: fechar portão'
+  use_blueprint:
+    path: homeassistant/confirmable_notification.yaml
+    input:
+      notify_device: a4f979c05c9038669db054253ab83e9d
+      confirm_action:
+      - device_id: 82a3ba11ced67ffa3113dae53b136c3b
+        domain: cover
+        entity_id: 01f5bb676dba5c10345c5d513eed0a62
+        type: close
+      confirm_text: Fechar
+      title: O portão foi aberto
+      message: Deseja fechar?
+      dismiss_text: Manter aberto
+  icon: mdi:gate
+definir_horario_de_ultimao_portao_aberto:
+  alias: Definir horário de último portão aberto
+  sequence:
+  - service: input_datetime.set_datetime
+    metadata: {}
+    data:
+      datetime: '{{states(''sensor.date_time_iso'')}}'
+    target:
+      entity_id: input_datetime.portao_last_open
+  mode: single
+  icon: mdi:garage
+samsungtv_power:
+  alias: samsungtv_power
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      num_repeats: 1
+      command: power
+      device: samsungtv
+    target:
+      device_id: fd506f7fdcaeb9917db38831699ef153
+  description: liga/desliga tv samsung na sala de jantar
+  icon: mdi:power
+ht_power:
+  alias: ht_power
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: power
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: liga lg ht
+  icon: mdi:disc-player
+ht_play:
+  alias: ht_play
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: play
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:play
+ht_stop:
+  alias: ht_stop
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: stop
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:stop
+ht_pause:
+  alias: ht_pause
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: pause
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:pause
+ht_menu:
+  alias: ht_menu
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: menu
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:menu
+ht_home:
+  alias: ht_home
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: home
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:home
+ht_ok:
+  alias: ht_ok
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: ok
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:smoke-detector
+ht_down:
+  alias: ht_down
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: down
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:arrow-down
+ht_up:
+  alias: ht_up
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: up
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:arrow-up
+ht_left:
+  alias: ht_left
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: left
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:arrow-left
+ht_right:
+  alias: ht_right
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: right
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:arrow-right
+ht_openclose:
+  alias: ht_openclose
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: openclose
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:disc-alert
+ht_function:
+  alias: ht_function
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: function
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:function
+ht_volumedown:
+  alias: ht_volumedown
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: volumedown
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:volume-minus
+ht_mute_2:
+  alias: ht_mute
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: mute
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:volume-mute
+ht_volumeup:
+  alias: ht_volumeup
+  sequence:
+  - service: remote.send_command
+    metadata: {}
+    data:
+      device: ht
+      command: volumeup
+    target:
+      device_id: 36ab96ba7d324d249f1c1e8b792dfc8c
+  description: ''
+  icon: mdi:volume-plus
