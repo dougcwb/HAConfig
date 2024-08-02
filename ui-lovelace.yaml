@@ -1,0 +1,2514 @@
+views:
+  - title: Geral
+    path: geral
+    icon: mdi:home
+    badges: []
+    cards:
+      - cards:
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.xrn12pp_battery_level
+                above: 0
+            card:
+              elements:
+                - entity: sensor.xrn12pp_battery_level
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    left: 10%
+                    top: 10%
+                  type: state-icon
+                - entity: sensor.xrn12pp_battery_level
+                  type: state-label
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    left: 15%
+                    top: '-5%'
+                    transform: translate(0%, 0%)
+                - entity: sensor.anniversary_doug
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    color: white
+                    left: 10%
+                    top: 88%
+                  type: state-icon
+                - entity: sensor.anniversary_doug
+                  type: state-label
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    color: white
+                    left: 50%
+                    top: 93%
+              image: /local/img/doug.jpg
+              type: picture-elements
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.rn12pp_battery_level
+                above: 0
+            card:
+              elements:
+                - entity: sensor.rn12pp_battery_level
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    left: 10%
+                    top: 10%
+                  type: state-icon
+                - entity: sensor.rn12pp_battery_level
+                  type: state-label
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    left: 15%
+                    top: '-5%'
+                    transform: translate(0%, 0%)
+                - entity: sensor.anniversary_doug
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    color: white
+                    left: 10%
+                    top: 88%
+                  type: state-icon
+                - entity: sensor.anniversary_doug
+                  type: state-label
+                  style:
+                    filter: drop-shadow(1px 1px 1px black)
+                    color: white
+                    left: 50%
+                    top: 93%
+              image: /local/img/doug.jpg
+              type: picture-elements
+          - elements:
+              - entity: sensor.rn12pju_battery_level
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 60%
+                  top: 10%
+                type: state-label
+                transform: translate(0%, 0%)
+              - entity: sensor.rn12pju_battery_level
+                type: state-icon
+                transform: translate(0%, 0%)
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 90%
+                  top: 10%
+              - entity: sensor.anniversary_ju
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 10%
+                  top: 88%
+                type: state-icon
+              - entity: sensor.anniversary_ju
+                type: state-label
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 50%
+                  top: 93%
+            image: /local/img/ju.jpg
+            type: picture-elements
+          - elements:
+              - entity: sensor.tabletteclast_battery_level
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 70%
+                  top: 10%
+                type: state-label
+              - entity: sensor.tabletteclast_battery_level
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 90%
+                  top: 10%
+                type: state-icon
+              - entity: sensor.anniversary_icaro
+                style:
+                  left: 10%
+                  top: 90%
+                  filter: drop-shadow(1px 1px 1px black)
+                type: state-icon
+              - entity: sensor.anniversary_icaro
+                type: state-label
+                style:
+                  filter: drop-shadow(1px 1px 1px black)
+                  left: 50%
+                  top: 93%
+            image: /local/img/icaro.jpg
+            type: picture-elements
+        type: horizontal-stack
+      - type: custom:button-text-card
+        large: true
+        entity: binary_sensor.portao
+        title: PORTÃO ABERTO
+        background_color: '#A81419'
+        font_color: '#fff'
+        icon: mdi:gate-alert
+        hide_condition: |
+          [[[ return entity.state === "off" ]]]
+      - type: custom:button-text-card
+        large: true
+        entity: switch.modem
+        title: MODEM DESLIGADO
+        background_color: '#FB0'
+        font_color: '#F00'
+        icon: mdi:microsoft-internet-explorer
+        hide_condition: |
+          [[[ return entity.state === "on" ]]]
+      - type: custom:button-text-card
+        large: true
+        entity: switch.geladeira
+        title: GELADEIRA DESLIGADA
+        background_color: '#FB0'
+        font_color: '#F00'
+        icon: mdi:fridge-alert-outline
+        hide_condition: |
+          [[[ return entity.state === "on" ]]]
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luzes
+                hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/estar
+                entity: light.luzes_da_sala
+                label: |
+                  [[[
+                    return `${states['sensor.sonoff_a440016c2a_temperature'].state}ºC/
+                    <span>${states['sensor.sonoff_a440016c2a_humidity'].state}%</span>`;       
+                  ]]]
+                tap_action:
+                  action: toggle
+                name: Estar
+                styles:
+                  custom_fields:
+                    a:
+                      - color: >-
+                          [[[ if (states["light.lustre"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.lustre"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    b:
+                      - color: >-
+                          [[[ if (states["light.spots_estar"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["light.spots_estar"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    c:
+                      - color: >-
+                          [[[ if (states["light.controller_rgbw_7227f0"].state
+                          == "on") 
+                                return "var(--paper-item-icon-active-color)";  
+                              if (states["media_player.lg_webos_smart_tv"].state == "off") 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";  ]]]
+                    d:
+                      - color: >-
+                          [[[ if (states["media_player.lg_webos_smart_tv"].state
+                          == "on") 
+                                return "var(--paper-item-icon-active-color)";  
+                              if (states["media_player.lg_webos_smart_tv"].state == "off") 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";  ]]]
+                custom_fields:
+                  a: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:chandelier"
+                        style="width: 15px; height: 15px; ">
+                        </ha-icon>`
+                    ]]]
+                  b: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:square-medium-outline"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  c: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:led-strip"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  d: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:television"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+              - type: custom:button-card
+                template: luzes
+                entity: light.luzes_de_jantar
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/jantar
+                name: Jantar
+                styles:
+                  custom_fields:
+                    a:
+                      - color: >-
+                          [[[ if (states["light.jantar"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.jantar"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    b:
+                      - color: >-
+                          [[[ if (states["light.spots_jantar"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["light.spots_jantar"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    c:
+                      - color: >-
+                          [[[ if (states["light.corredor"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.corredor"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    d:
+                      - color: >-
+                          [[[ if (states["media_player.nestcasa"].state ==
+                          "playing") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["media_player.nestcasa"].state == "off")
+                          return "var(--paper-item-icon-color)";    else 
+                            return "#6CF";]]]
+                    e:
+                      - color: >-
+                          [[[ if (states["media_player.lg_webos_smart_tv"].state
+                          == "on") 
+                                return "var(--paper-item-icon-active-color)";  
+                              if (states["media_player.lg_webos_smart_tv"].state == "off") 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";]]]
+                custom_fields:
+                  a: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:silverware-variant"
+                        style="width: 15px; height: 15px; ">
+                        </ha-icon>`
+                    ]]]
+                  b: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:square-medium-outline"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  c: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:road-variant"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  d: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:google-assistant"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  e: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:television"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+              - type: custom:button-card
+                template: luzes
+                hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/cozinha
+                tap_action:
+                  action: toggle
+                entity: light.luzes_da_cozinha
+                name: Cozinha
+                styles:
+                  custom_fields:
+                    a:
+                      - color: >-
+                          [[[ if (states["light.cozinha"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.cozinha"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                    b:
+                      - color: >-
+                          [[[ if (states["light.spots_cozinha"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["light.spots_cozinha"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                    c:
+                      - color: >-
+                          [[[ if (states["light.pendentes"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["light.pendentes"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                    d:
+                      - color: >-
+                          [[[ if (states["switch.geladeira"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["switch.geladeira"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                    e:
+                      - color: >-
+                          [[[ if (states["switch.arrozeira"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["switch.arrozeira"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                custom_fields:
+                  a: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:food"
+                        style="width: 15px; height: 15px; ">
+                        </ha-icon>`
+                    ]]]
+                  b: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:square-medium-outline"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  c: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:triangle-outline"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  d: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:fridge"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  e: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:rice"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luzes
+                hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/quintal
+                entity: light.luzes_do_quintal
+                label: |
+                  [[[
+                    return `${states['weather.casa'].attributes.temperature}
+                    ${states['weather.casa'].attributes.temperature_unit}/
+                    ${states['weather.casa'].attributes.humidity}%`;  
+                  ]]]
+                name: Quintal
+                tap_action:
+                  action: toggle
+                styles:
+                  custom_fields:
+                    a:
+                      - color: >-
+                          [[[ if (states["light.postes"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.postes"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    b:
+                      - color: >-
+                          [[[ if (states["light.varanda"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.varanda"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    c:
+                      - color: >-
+                          [[[ if (states["light.garagem"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.garagem"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    d:
+                      - color: >-
+                          [[[ if (states["light.frente"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.frente"].state == "off") return
+                          "var(--paper-item-icon-color)";    else 
+                            return "red";]]]
+                    e:
+                      - color: |-
+                          [[[ if (states["switch.campainha"].state == 'on') 
+                                return "var(--paper-item-icon-active-color)";  
+                              if (states["switch.campainha"].state == 'off') 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";]]]
+                    f:
+                      - color: |-
+                          [[[ if (states["sensor.moon_fase"].state != 'on') 
+                                return "var(--paper-item-icon-active-color)";  
+                              if (states["sensor.moon_fase"].state != 'off') 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";]]]
+                      - icon: '[[[ return "mdi:moon-full"; ]]]'
+                custom_fields:
+                  a: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:coach-lamp"
+                        style="width: 15px; height: 15px; ">
+                        </ha-icon>`
+                    ]]]
+                  b: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:tree-outline"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  c: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:garage"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  d: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:flower"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  e: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:bell-alert"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  f: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:moon-waxing-crescent"
+                        style="width: 15px; height: 15px; 
+                        color: white">
+                        </ha-icon>`
+                    ]]]
+              - type: custom:button-card
+                template: luzes
+                hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/quarto
+                entity: light.casal
+                label: |
+                  [[[
+                    return `${states['sensor.sonoff_1000aede10_temperature'].state}ºC/
+                    <span>${states['sensor.sonoff_1000aede10_humidity'].state}%</span>`;  
+                  ]]]
+                tap_action:
+                  action: toggle
+                styles:
+                  custom_fields:
+                    a:
+                      - color: >-
+                          [[[ if (states["light.casal"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.casal"].state == "off") return
+                          "var(--paper-item-icon-color)";  ]]]
+                    b:
+                      - color: >-
+                          [[[ if (states["light.casal"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.casal"].state == "off") return
+                          "var(--paper-item-icon-color)";  ]]]
+                    c:
+                      - color: >-
+                          [[[ if (states["switch.repelente_casal"].state ==
+                          "on") return "var(--paper-item-icon-active-color)"; 
+                          if (states["switch.repelente_casal"].state == "off")
+                          return "var(--paper-item-icon-color)";  ]]]
+                    d:
+                      - color: >-
+                          [[[ if (states["switch.umidificador"].state == "on")
+                          return "var(--paper-item-icon-active-color)";  if
+                          (states["switch.umidificador"].state == "off") return
+                          "var(--paper-item-icon-color)";  ]]]
+                custom_fields:
+                  a: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:bed"
+                        style="width: 15px; height: 15px; ">
+                        </ha-icon>`
+                    ]]]
+                  b: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:lamp"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  c: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:bug-outline"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  d: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:air-humidifier"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+              - type: custom:button-card
+                template: luzes
+                hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/atico
+                entity: light.luzes_do_atico
+                tap_action:
+                  action: toggle
+                name: Ático
+                styles:
+                  custom_fields:
+                    a:
+                      - color: >-
+                          [[[ if (states["light.atico"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.atico"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                    b:
+                      - color: >-
+                          [[[ if (states["light.escada"].state == "on") return
+                          "var(--paper-item-icon-active-color)";  if
+                          (states["light.escada"].state == "off") return
+                          "var(--paper-item-icon-color)";      else 
+                            return "red";]]]
+                    c:
+                      - color: |-
+                          [[[ if (states["light.arandela"].state == 'on') 
+                                return "var(--paper-item-icon-active-color)";              
+                              if (states["light.arandela"].state == 'off') 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";  ]]]
+                    d:
+                      - color: |-
+                          [[[ if (states["switch.minipc"].state == 'on') 
+                                return "var(--paper-item-icon-active-color)";              
+                              if (states["switch.minipc"].state == 'off') 
+                                return "var(--paper-item-icon-color)";   
+                              else 
+                                return "red";  ]]]
+                custom_fields:
+                  a: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:home-roof"
+                        style="width: 15px; height: 15px; ">
+                        </ha-icon>`
+                    ]]]
+                  b: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:stairs"
+                        style="width: 15px; height: 15px;">
+                        </ha-icon>`
+                    ]]]
+                  c: |
+                    [[[ return `<ha-icon
+                                icon="mdi:wall-sconce"
+                                style="width: 15px; height: 15px; ">
+                                </ha-icon>`
+                    ]]]
+                  d: |
+                    [[[ return `<ha-icon
+                                icon="mdi:raspberry-pi"
+                                style="width: 15px; height: 15px; ">
+                                </ha-icon>`        
+                    ]]]
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.banheiro
+              - type: custom:button-card
+                template: luz
+                entity: light.lavanderia
+              - type: custom:button-card
+                template: luz
+                entity: light.fundos
+              - type: custom:button-card
+                template: luz
+                entity: light.icaro
+              - type: custom:button-card
+                template: luz
+                entity: light.tomadas_icaro
+                name: Ícaro Tom.
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entity-button
+                tap_action:
+                  action: toggle
+                entity: switch.tv_q_power
+                name: SAMSUNG TV
+                show_name: false
+                icon: mdi:television-ambient-light
+                state_color: false
+                style: |
+                  ha-card {
+                    background: {% if is_state('media_player.tv_samsung', 'idle') %} green {% endif %};
+                  }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: media_player.lg_webos_smart_tv
+                    state: 'off'
+                card:
+                  type: entity-button
+                  tap_action:
+                    action: toggle
+                  entity: switch.lgtv_wake
+                  state_color: false
+                  show_state: false
+                  show_name: false
+                  icon: mdi:television
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: media_player.lg_webos_smart_tv
+                    state_not: 'off'
+                card:
+                  type: entity-button
+                  tap_action:
+                    action: toggle
+                  entity: media_player.lg_webos_smart_tv
+                  state_color: true
+                  show_state: false
+                  show_name: false
+                  show_label: true
+                  label: |
+                    [[[
+                      return `${states['media_player.lg_webos_smart_tv'].attributes.source}`;
+                    ]]]
+              - type: entity-button
+                tap_action:
+                  action: toggle
+                entity: media_player.nestcasa
+                show_name: false
+                state_color: true
+                show_state: false
+              - type: entity-button
+                tap_action:
+                  action: toggle
+                entity: media_player.ytube_music_player
+                show_name: false
+                name: Music
+                state_color: true
+                show_state: false
+              - type: custom:button-card
+                template: switches
+                tap_action:
+                  action: toggle
+                entity: input_boolean.visitas
+                show_name: false
+                show_icon: true
+                show_state: false
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                show_label: true
+                label: |
+                  [[[
+                    return `${states['sensor.portao_hoje'].state}`;
+                  ]]]
+                template: switches
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  target:
+                    entity: switch.portao
+                hold_action:
+                  action: info
+                entity: binary_sensor.portao
+                show_name: false
+              - type: custom:button-card
+                template: switches
+                entity: switch.tomada_externa
+                name: Externa
+              - type: custom:button-card
+                template: switches
+                entity: switch.tomada_atico
+                name: Ático
+                show_label: true
+                show_name: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_tomada_atico'].state} W`;
+                  ]]]
+              - type: custom:button-card
+                template: switches
+                entity: switch.lava_roupas
+                name: Roupas
+                show_label: true
+                show_name: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_lava_roupas'].state} W`;
+                  ]]]
+              - type: custom:button-card
+                template: switches
+                entity: switch.seca_roupas
+                name: Seca
+                show_label: true
+                show_name: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_seca_roupas'].state} W`;
+                  ]]]
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: switches
+                entity: fan.vent_pequeno
+                name: Pequeno
+              - type: custom:button-card
+                template: switches
+                tap_action:
+                  action: toggle
+                entity: fan.vent_medio
+                name: Medio
+              - type: custom:button-card
+                template: switches
+                tap_action:
+                  action: toggle
+                entity: fan.vent_grande
+                name: Grande
+              - type: custom:button-card
+                template: switches
+                entity: switch.repelente_casal
+                name: Casal
+                show_label: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_rep_casal'].state} W`;
+                  ]]]
+              - type: custom:button-card
+                template: switches
+                entity: switch.repelente_icaro
+                name: Icaro
+                show_name: true
+                show_label: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_rep_icaro'].state} W`;
+                  ]]]
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: switches
+                entity: switch.aquecedor
+                show_state: false
+                show_name: false
+                show_label: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_aquecedor'].state} W`;
+                  ]]]
+              - type: custom:button-card
+                template: switches
+                entity: switch.pressurizador
+                show_state: false
+                show_name: false
+              - type: custom:button-card
+                template: switches
+                tap_action:
+                  action: toggle
+                entity: switch.umidificador
+                show_name: false
+                label: |
+                  [[[
+                    return `${states['sensor.sonoff_1000aede10_humidity'].state}% | ${states['sensor.sonoff_1000aede10_temperature'].state}º`;
+                  ]]]
+              - type: custom:button-card
+                template: switches
+                entity: switch.arrozeira
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: info
+                show_label: true
+                show_name: true
+                label: |
+                  [[[
+                    return `${states['sensor.potencia_arrozeira'].state} W`;
+                  ]]]
+              - type: custom:button-card
+                template: switches
+                entity: switch.pc_wake
+                show_state: false
+                show_name: false
+                show_label: true
+                label: |
+                  [[[ 
+                    return `${states['device_tracker.miwifi_3c_7c_3f_3b_b3_4a'].attributes.online}` 
+                  ]]]
+          - type: horizontal-stack
+            cards:
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: scene.dormir
+                tap_action:
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.dormir
+              - type: button
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/musica
+                icon: mdi:music
+                name: Música
+              - show_name: true
+                show_icon: true
+                type: button
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/camera
+                icon: mdi:video-wireless
+                name: 'Camera '
+              - type: button
+                entity: sensor.moon_fase
+                show_name: false
+                show_icon: true
+                show_state: true
+              - show_name: false
+                show_icon: true
+                type: button
+                tap_action:
+                  action: more-info
+                entity: sensor.zodiac
+                show_state: true
+                hold_action:
+                  action: none
+  - title: Estar
+    path: estar
+    icon: mdi:sofa
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.luzes_da_sala
+                name: Sala de Estar
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: light.lustre
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: light.spots_estar
+              - type: light
+                entity: light.controller_rgbw_7227f0
+                icon: mdi:led-strip
+                name: Teto
+          - type: horizontal-stack
+            columns: 4
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.led_down
+                show_name: false
+                state_color: false
+                icon_height: 30px
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.led_up
+                show_name: false
+                state_color: false
+                icon_height: 30px
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.led_off
+                icon: mdi:power-off
+                show_name: false
+                state_color: false
+                icon_height: 30px
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.led_on
+                icon: mdi:power
+                show_name: false
+                state_color: false
+                icon_height: 30px
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-media-player
+                entity: media_player.lg_webos_smart_tv
+                artwork: cover
+                hide:
+                  controls: false
+                  icon: true
+                  power_state: false
+                  shuffle: false
+                  sound_mode: false
+                  source: false
+                  volume: false
+                shortcuts:
+                  columns: 4
+                  buttons:
+                    - id: Netflix
+                      type: source
+                      icon: mdi:netflix
+                    - id: Prime Video
+                      type: source
+                      name: Amazon
+                    - id: Max
+                      type: source
+                      name: MAX
+                    - id: Disney+
+                      type: source
+                      name: Disney
+                    - id: YouTube
+                      type: source
+                      icon: mdi:youtube
+                    - id: YouTube Kids
+                      type: source
+                      name: Kids
+                    - id: Stremio
+                      type: source
+                      name: Stremio
+                    - id: Live TV
+                      type: source
+                      icon: mdi:antenna
+                    - icon: mdi:numeric-1-box
+                      id: script.1
+                      type: script
+                    - icon: mdi:numeric-2-box
+                      id: script.2
+                      type: script
+                    - icon: mdi:numeric-3-box
+                      id: script.3
+                      type: script
+                    - icon: mdi:volume-plus
+                      id: script.tv_lg_volup
+                      type: script
+                    - icon: mdi:numeric-4-box
+                      id: script.4
+                      type: script
+                    - icon: mdi:numeric-5-box
+                      id: script.5
+                      type: script
+                    - icon: mdi:numeric-6-box
+                      id: script.6
+                      type: script
+                    - icon: mdi:volume-minus
+                      id: script.tv_lg_voldown
+                      type: script
+                    - icon: mdi:numeric-7-box
+                      id: script.7
+                      type: script
+                    - icon: mdi:numeric-8-box
+                      id: script.8
+                      type: script
+                    - icon: mdi:numeric-9-box
+                      id: script.9
+                      type: script
+                    - icon: mdi:arrow-up-bold-box
+                      id: script.tv_lg_channelup
+                      type: script
+                    - icon: mdi:menu
+                      id: script.tv_lg_menu
+                      type: script
+                    - icon: mdi:numeric-0-box
+                      id: script.0
+                      type: script
+                    - icon: mdi:volume-mute
+                      id: script.tv_lg_mute
+                      type: script
+                    - icon: mdi:arrow-down-bold-box
+                      id: script.tv_lg_channeldown
+                      type: script
+                    - icon: mdi:exit-to-app
+                      id: script.tv_lg_exit
+                      type: script
+                    - icon: mdi:arrow-up-bold
+                      id: script.tv_lg_up
+                      type: script
+                    - icon: mdi:keyboard-backspace
+                      id: script.tv_lg_back
+                      type: script
+                    - icon: mdi:information
+                      id: script.tv_lg_info
+                      type: script
+                    - icon: mdi:arrow-left-bold
+                      id: script.tv_lg_left
+                      type: script
+                    - icon: mdi:record-circle
+                      id: script.tv_lg_enter
+                      type: script
+                    - icon: mdi:arrow-right-bold
+                      id: script.tv_lg_right
+                      type: script
+                    - icon: mdi:view-dashboard
+                      id: script.tv_lg_dash
+                      type: script
+                    - icon: mdi:home
+                      id: script.tv_lg_home
+                      type: script
+                    - icon: mdi:arrow-down-bold
+                      id: script.tv_lg_down
+                      type: script
+                    - icon: mdi:play
+                      id: script.tv_lg_play
+                      type: script
+                    - icon: mdi:pause
+                      id: script.tv_lg_pause
+                      type: script
+                    - icon: mdi:chat
+                      id: script.tv_lg_notify
+                      type: script
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - color_thresholds:
+                  - color: '#0AF'
+                    value: 0
+                  - color: '#6C6'
+                    value: 5
+                  - color: '#F33'
+                    value: 15
+                entities:
+                  - entity: sensor.lgtv_hoje
+                    aggregate_func: max
+                    name: TV Hoje
+                hour24: true
+                group_by: date
+                hours_to_show: 192
+                lower_bound: 0
+                show:
+                  average: false
+                  extrema: false
+                  graph: bar
+                type: custom:mini-graph-card
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - color: '#E34934'
+                    entity: sensor.sonoff_a440016c2a_temperature
+                    show_state: true
+                height: 140
+                hours_to_show: 24
+                line_width: 2
+                lower_bound: 0
+                points_per_hour: 30
+                show:
+                  average: true
+                  extrema: true
+                  graph: false
+                type: custom:mini-graph-card
+              - entities:
+                  - color: '#E34934'
+                    entity: sensor.sonoff_a440016c2a_humidity
+                    show_state: true
+                height: 140
+                hours_to_show: 24
+                line_width: 2
+                lower_bound: 30
+                points_per_hour: 30
+                show:
+                  average: true
+                  extrema: true
+                  graph: false
+                type: custom:mini-graph-card
+                upper_bound: 100
+          - type: gauge
+            entity: sensor.sonoff_a440016c2a_battery
+            unit: '%'
+            needle: false
+            severity:
+              green: 60
+              yellow: 30
+              red: 0
+      - type: custom:button-text-card
+        icon: |
+          [[[
+            const count = Object.entries(states).filter(e => e[0].indexOf('person.') === 0 && e[1].state === "home").length;
+
+            if(count === 0){
+              return "mdi:home-export-outline";
+            }else{
+              return "mdi:home-import-outline";
+            }
+          ]]]
+        title: |
+          [[[
+            const count = Object.entries(states).filter(e => e[0].indexOf('person.') === 0 && e[1].state === "home").length;
+            return "People home: " + count;
+          ]]]
+        subtitle: Support for templating!
+  - title: Jantar
+    path: jantar
+    icon: mdi:food-turkey
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.luzes_de_jantar
+                name: Sala de Jantar
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.jantar
+              - type: custom:button-card
+                template: luz
+                entity: light.spots_jantar
+              - type: custom:button-card
+                template: luz
+                entity: light.corredor
+          - artwork: cover
+            entity: media_player.nest
+            hide:
+              controls: false
+              icon: true
+              power_state: false
+              shuffle: true
+              sound_mode: false
+              source: false
+              volume: false
+            tts:
+              language: pt
+              platform: google_translate
+            type: custom:mini-media-player
+            volume_step: '5'
+            volume_stateless: false
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - entity: media_player.tv_samsung_led40
+                artwork: cover
+                hide:
+                  controls: false
+                  icon: true
+                  power_state: false
+                  shuffle: false
+                  sound_mode: false
+                  source: true
+                  volume: true
+                shortcuts:
+                  buttons:
+                    - data:
+                        entity_id: media_player.un40f5500
+                        media_content_id: 12
+                        media_content_type: channel
+                      id: media_player.play_media
+                      name: Globo
+                      type: service
+                    - data:
+                        entity_id: media_player.un40f5500
+                        media_content_id: 9
+                        media_content_type: channel
+                      name: Cultura
+                      id: media_player.play_media
+                      type: service
+                    - data:
+                        entity_id: media_player.un40f5500
+                        media_content_id: 2
+                        media_content_type: channel
+                      name: Band
+                      id: media_player.play_media
+                      type: service
+                  columns: 5
+                type: custom:mini-media-player
+                toggle_power: true
+                volume_stateless: false
+                group: false
+                volume_step: '5'
+          - type: horizontal-stack
+            cards:
+              - type: entity-button
+                tap_action:
+                  action: toggle
+                entity: switch.tv_q_power
+                show_name: false
+                state_color: false
+                icon: mdi:power
+                style: |
+                  ha-card {
+                    background: {% if is_state('media_player.tv_samsung_led40', 'idle') %} green {% endif %};
+                  }
+              - type: entity-button
+                tap_action:
+                  action: toggle
+                entity: switch.tv_q_source
+                show_name: false
+                state_color: false
+                icon: mdi:source-branch
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.tv_q_tv
+                show_name: false
+                state_color: false
+                icon: mdi:television
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: switch.tv_q_smarthub
+                show_name: false
+                state_color: false
+                icon: mdi:lock-smart
+              - show_name: false
+                show_icon: true
+                type: button
+                tap_action:
+                  action: toggle
+                entity: input_boolean.opcoes
+                icon: mdi:tools
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: input_boolean.opcoes
+                state: 'on'
+            card:
+              type: vertical-stack
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_volup
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-up-bold-box
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_channelup
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-up-bold-outline
+                - type: horizontal-stack
+                  cards:
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_voldown
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-down-bold-box
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_channeldown
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-down-bold-outline
+                - type: horizontal-stack
+                  cards:
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_tools
+                      show_name: false
+                      state_color: false
+                      icon: mdi:tools
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_up
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-up
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_info
+                      show_name: false
+                      state_color: false
+                      icon: mdi:information
+                - type: horizontal-stack
+                  cards:
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_left
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-left
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_ok
+                      show_name: false
+                      state_color: false
+                      icon: mdi:circle
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_right
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-right
+                - type: horizontal-stack
+                  cards:
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_return
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-up-left
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_down
+                      show_name: false
+                      state_color: false
+                      icon: mdi:arrow-down
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_exit
+                      show_name: false
+                      state_color: false
+                      icon: mdi:exit-to-app
+                - type: horizontal-stack
+                  cards:
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_rw
+                      show_name: false
+                      state_color: false
+                      icon: mdi:rewind
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_play
+                      show_name: false
+                      state_color: false
+                      icon: mdi:play
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_pause
+                      show_name: false
+                      state_color: false
+                      icon: mdi:pause
+                    - type: button
+                      tap_action:
+                        action: toggle
+                      entity: switch.tv_q_ff
+                      show_name: false
+                      state_color: false
+                      icon: mdi:fast-forward
+                - type: vertical-stack
+                  cards:
+                    - type: horizontal-stack
+                      cards:
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_sleep
+                          show_icon: false
+                          state_color: false
+                          name: Sleep
+                          icon_height: 30px
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_psize
+                          show_icon: false
+                          state_color: false
+                          name: Resolução
+                          icon_height: 30px
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_pip
+                          show_icon: false
+                          state_color: false
+                          name: PIP
+                          icon_height: 30px
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_energysaving
+                          name: Brilho
+                          show_icon: false
+                          state_color: false
+                          icon_height: 30px
+                    - type: horizontal-stack
+                      cards:
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_menu
+                          show_icon: true
+                          icon: mdi:menu
+                          name: Menu
+                          icon_height: 30px
+                          show_state: false
+                          state_color: false
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_futebol
+                          icon: mdi:soccer
+                          show_icon: true
+                          state_color: false
+                          name: Futebol
+                          icon_height: 30px
+                        - type: button
+                          tap_action:
+                            action: toggle
+                          entity: switch.tv_q_chlist
+                          show_icon: true
+                          icon: mdi:list-box
+                          state_color: false
+                          name: Lista
+                          icon_height: 30px
+  - title: Cozinha
+    path: cozinha
+    icon: mdi:food
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.luzes_da_cozinha
+                name: Cozinha
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.cozinha
+                name: Luminária
+              - type: custom:button-card
+                template: luz
+                entity: light.spots_cozinha
+                name: Spots
+              - type: custom:button-card
+                template: luz
+                entity: light.pendentes
+                name: Pendentes
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: switch.arrozeira
+              - type: custom:button-card
+                template: luz
+                entity: switch.geladeira
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.lavanderia
+              - type: custom:button-card
+                template: luz
+                entity: switch.lava_roupas
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.fundos
+              - type: custom:button-card
+                template: luz
+                entity: switch.seca_roupas
+          - type: entities
+            entities:
+              - entity: sensor.potencia_seca_roupas
+              - entity: sensor.potencia_lava_roupas
+              - entity: sensor.potencia_arrozeira
+      - type: horizontal-stack
+        cards:
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.potencia_arrozeira
+            name: Arroz
+            icon: mdi:rice
+            hours_to_show: 148
+            aggregate_func: max
+            group_by: date
+            show:
+              graph: bar
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.potencia_lava_roupas
+            name: Lava
+            icon: mdi:washing-machine
+            hours_to_show: 148
+            aggregate_func: max
+            group_by: date
+            show:
+              graph: bar
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.potencia_seca_roupas
+            name: Seca
+            icon: mdi:tumble-dryer
+            hours_to_show: 148
+            aggregate_func: max
+            group_by: date
+            show:
+              graph: bar
+  - title: Quintal
+    path: quintal
+    icon: mdi:flower-tulip
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.luzes_do_quintal
+                name: Quintal
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.postes
+              - type: custom:button-card
+                template: luz
+                entity: light.varanda
+              - type: custom:button-card
+                template: luz
+                entity: light.garagem
+              - type: custom:button-card
+                template: luz
+                entity: light.frente
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: switch.portao
+              - type: custom:button-card
+                template: luz
+                entity: switch.tomada_externa
+                name: Externa
+              - type: custom:button-card
+                template: luz
+                tap_action:
+                  action: toggle
+                entity: automation.timer_quintal_15min
+                name: Timer Quintal
+              - type: custom:button-card
+                template: luz
+                entity: sensor.moon_fase
+                show_state: true
+                show_name: false
+      - type: vertical-stack
+        cards:
+          - entity: weather.casa
+            theme: default
+            type: weather-forecast
+            forecast_type: daily
+          - type: horizontal-stack
+            cards:
+              - color_thresholds:
+                  - color: '#03A9F4'
+                    value: 1
+                  - color: '#66BB6A'
+                    value: 2
+                  - color: '#E65100'
+                    value: 3
+                hours_to_show: 24
+                line_width: 2
+                points_per_hour: 4
+                show:
+                  average: true
+                  extrema: true
+                  fill: true
+                type: custom:mini-graph-card
+                entities:
+                  - entity: weather.casa
+                    attribute: temperature
+              - type: custom:mini-graph-card
+                entities:
+                  - entity: weather.casa
+                    attribute: humidity
+                hours_to_show: 168
+                name: Umidade (7d)
+                line_width: 3
+                show:
+                  average: true
+                  extrema: true
+                  graph: true
+          - graph: line
+            type: sensor
+            detail: 2
+            entity: sensor.casa_realfeel_temperature
+            hours_to_show: 12
+            name: Sensação Real
+      - camera_view: live
+        alert_classes:
+          - motion
+          - moisture
+        sensor_classes:
+          - temperature
+          - humidity
+        type: area
+        area: quintal
+        show_camera: true
+      - type: markdown
+        content: >-
+          Portão aberto: {{((now() -
+          states.input_datetime.portao_last_open.state|as_datetime|as_local)|string).split('.')[0]}}
+  - title: Ático
+    path: atico
+    icon: mdi:home-roof
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.luzes_do_atico
+                name: Ático
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.atico
+              - type: custom:button-card
+                template: luz
+                entity: light.arandela
+              - type: custom:button-card
+                template: luz
+                entity: light.escada
+          - type: horizontal-stack
+            cards:
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: fan.vent_grande
+              - type: button
+                tap_action:
+                  action: more-info
+                entity: switch.modem
+                hold_action:
+                  action: toggle
+              - show_name: true
+                show_icon: true
+                type: button
+                tap_action:
+                  action: more-info
+                entity: switch.minipc
+                hold_action:
+                  action: toggle
+                show_state: false
+              - type: button
+                entity: switch.tomada_atico
+                hold_action:
+                  action: more-info
+                name: Tom. Atico
+                show_state: false
+          - cards:
+              - cards:
+                  - color_thresholds:
+                      - color: '#03A9F4'
+                        value: 1
+                      - color: '#66BB6A'
+                        value: 2
+                      - color: '#E65100'
+                        value: 3
+                    hours_to_show: 24
+                    line_width: 2
+                    points_per_hour: 4
+                    show:
+                      average: true
+                      extrema: true
+                      fill: true
+                    type: custom:mini-graph-card
+                    entities:
+                      - sensor.cpu_speed
+                  - color_thresholds:
+                      - color: '#03A9F4'
+                        value: 1000
+                      - color: '#66BB6A'
+                        value: 2000
+                      - color: '#E65100'
+                        value: 4000
+                    entities:
+                      - sensor.system_monitor_uso_de_memoria
+                    hours_to_show: 24
+                    line_width: 2
+                    points_per_hour: 2
+                    show:
+                      average: true
+                      extrema: true
+                      fill: true
+                    type: custom:mini-graph-card
+                type: horizontal-stack
+              - type: horizontal-stack
+                cards:
+                  - type: gauge
+                    entity: sensor.system_monitor_uso_do_processador
+                    min: 0
+                    max: 100
+                    unit: '%'
+                    needle: true
+                    severity:
+                      green: 0
+                      yellow: 45
+                      red: 85
+                    name: Cpu %
+                  - type: gauge
+                    min: 0
+                    max: 100
+                    unit: '%'
+                    needle: true
+                    severity:
+                      green: 0
+                      yellow: 45
+                      red: 85
+                    entity: sensor.system_monitor_uso_de_memoria_2
+                  - type: gauge
+                    entity: sensor.system_monitor_uso_do_disco_2
+                    min: 0
+                    max: 100
+                    unit: '%'
+                    needle: true
+                    severity:
+                      green: 0
+                      yellow: 45
+                      red: 85
+              - type: horizontal-stack
+                cards:
+                  - type: gauge
+                    entity: sensor.system_monitor_uso_de_swap_2
+                    min: 0
+                    max: 100
+                    unit: '%'
+                    needle: true
+                    severity:
+                      green: 0
+                      yellow: 45
+                      red: 85
+                  - type: gauge
+                    min: 0
+                    max: 100
+                    needle: true
+                    severity:
+                      green: 0
+                      yellow: 45
+                      red: 85
+                    entity: sensor.system_monitor_temperatura_do_processador
+            type: vertical-stack
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: >-
+              {{states.sensor.cpu_speed.attributes.brand}}
+              ({{states.sensor.cpu_speed.attributes.arch}})
+              {{states.sensor.cpu_speed.state}}{{states.sensor.cpu_speed.attributes.unit_of_measurement}}
+          - type: entities
+            entities:
+              - entity: sensor.uptime
+              - entity: sensor.sql_size
+                icon: mdi:database
+                name: Database
+                style: |
+                  :host {
+                    --paper-item-icon-color:
+                      {% if states(config.entity)|int > 200 %}
+                        red
+                      {% else %}
+                        green
+                      {% endif %};
+                  }
+              - entity: sensor.hacs
+                name: HACS
+                style: |
+                  :host {
+                    --paper-item-icon-color:
+                      {% if states(config.entity)|int > 0 %}
+                        red
+                      {% endif %};
+                  }
+                tap_action:
+                  action: navigate
+                  navigation_path: /hacs/entry
+                icon: mdi:lan-connect
+              - entity: binary_sensor.home_assistant_versions_update_available
+                name: HA Update
+                style: |
+                  :host {
+                    --paper-item-icon-color:
+                      {% if is_state(config.entity, states("sensor.ultima_versao_ha")) %}
+                        green
+                      {% else %}
+                        red
+                      {% endif %};
+                  }
+                tap_action:
+                  action: navigate
+                  navigation_path: /hassio/update-available/core
+              - entity: sensor.myip
+              - entity: sensor.local_ip
+              - entity: sensor.system_monitor_endereco_ipv4_tailscale0
+      - type: entities
+        entities:
+          - entity: update.miwifi_28_d1_27_9e_64_80_firmware_update
+          - entity: light.miwifi_28_d1_27_9e_64_80_led
+          - entity: button.miwifi_28_d1_27_9e_64_80_reboot
+          - entity: binary_sensor.miwifi_28_d1_27_9e_64_80_wan_state
+          - entity: sensor.miwifi_28_d1_27_9e_64_80_wan_download_speed
+          - entity: sensor.miwifi_28_d1_27_9e_64_80_wan_upload_speed
+          - entity: sensor.miwifi_28_d1_27_9e_64_80_mode
+          - entity: binary_sensor.miwifi_28_d1_27_9e_64_80_state
+          - entity: sensor.miwifi_28_d1_27_9e_64_80_devices
+          - entity: switch.miwifi_28_d1_27_9e_64_80_wifi_2_4g
+          - entity: switch.miwifi_28_d1_27_9e_64_80_wifi_5g
+          - entity: binary_sensor.miwifi_28_d1_27_9e_64_80_dual_band
+          - entity: sensor.miwifi_28_d1_27_9e_64_80_uptime
+          - entity: switch.miwifi_28_d1_27_9e_64_80_wifi_guest
+        show_header_toggle: false
+        state_color: true
+        title: Ático
+      - type: entities
+        entities:
+          - entity: update.miwifi_28_d1_27_9e_4f_14_firmware_update
+          - entity: light.miwifi_28_d1_27_9e_4f_14_led
+          - entity: button.miwifi_28_d1_27_9e_4f_14_reboot
+          - entity: binary_sensor.miwifi_28_d1_27_9e_4f_14_wan_state
+          - entity: sensor.miwifi_28_d1_27_9e_4f_14_mode
+          - entity: binary_sensor.miwifi_28_d1_27_9e_4f_14_state
+          - entity: sensor.miwifi_28_d1_27_9e_4f_14_devices
+          - entity: switch.miwifi_28_d1_27_9e_4f_14_wifi_2_4g
+          - entity: switch.miwifi_28_d1_27_9e_4f_14_wifi_5g
+        title: Sala
+        show_header_toggle: false
+        state_color: true
+      - type: entities
+        entities:
+          - entity: update.miwifi_44_df_65_36_42_83_firmware_update_2
+          - entity: light.miwifi_44_df_65_36_42_83_led_2
+          - entity: button.miwifi_44_df_65_36_42_83_reboot_2
+          - entity: binary_sensor.miwifi_44_df_65_36_42_83_wan_state_2
+          - entity: sensor.miwifi_44_df_65_36_42_83_mode_2
+          - entity: binary_sensor.miwifi_44_df_65_36_42_83_state_2
+          - entity: sensor.miwifi_44_df_65_36_42_83_devices_2
+          - entity: switch.miwifi_44_df_65_36_42_83_wifi_2_4g_2
+          - entity: switch.miwifi_44_df_65_36_42_83_wifi_5g_2
+        title: Quarto
+        show_header_toggle: false
+        state_color: true
+  - title: Quarto
+    path: quarto
+    icon: mdi:bed
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.quarto
+                name: Quarto de Casal
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: luz
+                entity: light.casal
+              - type: custom:button-card
+                template: luz
+                entity: switch.repelente_casal
+              - type: custom:button-card
+                template: luz
+                entity: switch.umidificador
+          - type: conditional
+            conditions:
+              - entity: light.abajur
+                state: 'on'
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  entity: switch.abajur_white
+                  name: Branco
+                  show_icon: false
+                  show_state: false
+                  color_type: card
+                  styles:
+                    card:
+                      - background-color: '#FFF'
+                      - color: rgb(0,0,0)
+                      - font-weight: bold
+                - type: custom:button-card
+                  entity: switch.abajur_blue
+                  name: Azul
+                  show_icon: false
+                  show_state: false
+                  color_type: card
+                  styles:
+                    card:
+                      - background-color: '#039'
+                      - font-weight: bold
+                - type: custom:button-card
+                  entity: switch.abajur_red
+                  name: Vermelho
+                  show_icon: false
+                  show_state: false
+                  color_type: card
+                  styles:
+                    card:
+                      - background-color: '#930'
+                      - font-weight: bold
+                - type: custom:button-card
+                  entity: switch.abajur_green
+                  name: Verde
+                  show_icon: false
+                  show_state: false
+                  color_type: card
+                  styles:
+                    card:
+                      - background-color: '#093'
+                      - font-weight: bold
+                - type: custom:button-card
+                  entity: switch.abajur_yellow
+                  name: Amarelo
+                  show_icon: false
+                  show_state: false
+                  color_type: card
+                  styles:
+                    card:
+                      - background-color: '#DD3'
+                      - color: rgb(0,0,0)
+                      - font-weight: bold
+          - type: horizontal-stack
+            cards:
+              - type: entity
+                entity: input_datetime.tempo_repelente
+                name: Desliga Repelente
+      - type: vertical-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - cards:
+                  - type: custom:mini-graph-card
+                    entities:
+                      - entity: sensor.sonoff_1000aede10_temperature
+                        color: '#03A9F4'
+                        show_state: true
+                    height: 140
+                    hours_to_show: 24
+                    line_width: 2
+                    points_per_hour: 30
+                    show:
+                      average: true
+                      extrema: true
+                      graph: false
+                  - entities:
+                      - color: '#03A9F4'
+                        entity: sensor.sonoff_1000aede10_humidity
+                        show_state: true
+                    height: 140
+                    hours_to_show: 24
+                    line_width: 2
+                    points_per_hour: 30
+                    show:
+                      average: true
+                      extrema: true
+                      graph: false
+                    type: custom:mini-graph-card
+                type: horizontal-stack
+      - type: horizontal-stack
+        cards:
+          - type: entities
+            entities:
+              - entity: input_select.coco
+          - show_name: true
+            show_icon: true
+            type: button
+            tap_action:
+              action: toggle
+            entity: input_button.botao_coco
+  - title: Musica
+    path: musica
+    icon: mdi:music
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: media_player.ytube_music_player
+                name: Músicas
+          - type: horizontal-stack
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: input_boolean.ytube_music_player_playcontinuous
+                icon_height: 30px
+                show_icon: true
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: input_boolean.ytube_music_player_show_tracks
+                icon_height: 30px
+                show_icon: true
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: input_boolean.ytube_music_player_show_lyrics
+                icon_height: 30px
+              - type: custom:button-card
+                show_state: true
+                show_label: true
+                styles:
+                  card:
+                    - height: 100%
+                state:
+                  - operator: template
+                    value: >
+                      [[[ return
+                      states['media_player.ytube_music_player'].attributes.likeStatus
+                      == "LIKE"]]]
+                    icon: mdi:thumb-up
+                    color: var(--paper-item-icon-active-color)
+                  - operator: template
+                    value: >
+                      [[[ return
+                      states['media_player.ytube_music_player'].attributes.likeStatus
+                      == "INDIFFERENT"]]]
+                    icon: mdi:thumb-up-outline
+                  - operator: default
+                    icon: mdi:power-off
+                    value: false
+                tap_action:
+                  action: call-service
+                  service: ytube_music_player.call_method
+                  service_data:
+                    entity_id: media_player.ytube_music_player
+                    command: rate_track
+                    parameters: thumb_toggle_up_middle
+          - artwork: cover
+            entity: media_player.ytube_music_player
+            name: Youtube Music
+            hide:
+              controls: false
+              icon: true
+              power_state: false
+              shuffle: false
+              sound_mode: false
+              source: false
+              volume: false
+            type: custom:mini-media-player
+            volume_step: '5'
+          - type: vertical-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.ytube_music_player_playlist
+                  - entity: select.ytube_music_player_radio_mode
+                  - entity: select.ytube_music_player_speaker
+                  - entity: select.ytube_music_player_play_mode
+              - entity: media_player.nestcasa
+                artwork: cover
+                hide:
+                  controls: false
+                  icon: true
+                  power_state: false
+                  shuffle: true
+                  sound_mode: false
+                  source: false
+                  volume: false
+                shortcuts:
+                  buttons:
+                    - icon: mdi:soccer
+                      id: script.coxa
+                      type: script
+                    - icon: mdi:ghost
+                      id: script.ghostbusters
+                      type: script
+                    - icon: mdi:heart
+                      id: script.superman
+                      type: script
+                    - icon: mdi:shower
+                      id: script.banho
+                      type: script
+                    - icon: mdi:hand-back-right
+                      id: script.lava_mao
+                      type: script
+                    - icon: mdi:bell
+                      id: script.campainha
+                      type: script
+                    - icon: mdi:emoticon-excited-outline
+                      id: script.badumtss
+                      type: script
+                    - icon: mdi:guitar-electric
+                      id: script.rockradio
+                      type: script
+                    - icon: mdi:guitar-acoustic
+                      id: script.mundolivre
+                      type: script
+                    - icon: mdi:sword-cross
+                      id: script.lineage2
+                      type: script
+                    - icon: mdi:fire
+                      id: script.fogo
+                      type: script
+                    - icon: mdi:music
+                      id: script.never
+                      type: script
+                    - icon: mdi:numeric-1-circle-outline
+                      id: script.robot1
+                      type: script
+                    - icon: mdi:numeric-2-circle-outline
+                      id: script.robot2
+                      type: script
+                    - icon: mdi:numeric-3-circle-outline
+                      id: script.robot3
+                      type: script
+                    - icon: mdi:numeric-4-circle-outline
+                      id: script.robot4
+                      type: script
+                    - icon: mdi:numeric-5-circle-outline
+                      id: script.robot5
+                      type: script
+                    - icon: mdi:numeric-6-circle-outline
+                      id: script.robot6
+                      type: script
+                    - icon: mdi:numeric-7-circle-outline
+                      id: script.robot7
+                      type: script
+                    - icon: mdi:numeric-8-circle-outline
+                      id: script.robot8
+                      type: script
+                    - icon: mdi:numeric-9-circle-outline
+                      id: script.robot9
+                      type: script
+                    - icon: mdi:robot
+                      id: script.robot10
+                      type: script
+                    - icon: mdi:robot
+                      id: script.robot11
+                      type: script
+                  columns: 5
+                tts:
+                  language: pt
+                  platform: google_translate
+                type: custom:mini-media-player
+                volume_step: '5'
+                volume_stateless: false
+      - type: conditional
+        conditions:
+          - entity: media_player.ytube_music_player
+            state: playing
+          - entity: input_boolean.ytube_music_player_show_tracks
+            state: 'on'
+        card:
+          type: markdown
+          content: >-
+            Reproduzindo música  {{
+            state_attr("media_player.ytube_music_player", "current_track") }} de
+            {{ state_attr("sensor.ytube_music_player_extra", "total_tracks") }}
+            músicas ({{state_attr("media_player.ytube_music_player",
+            "videoId")}})
+
+
+            {% for i in range(0,state_attr("sensor.ytube_music_player_extra",
+            "total_tracks")) %}
+             {% if i == state_attr("media_player.ytube_music_player",
+            "current_track") %}*#*{% endif %}\[{{i}}] {{
+            state_attr("sensor.ytube_music_player_extra", "tracks")[i] }}{% if i
+            == state_attr("media_player.ytube_music_player", "current_track")
+            %}**{% endif %}{%- endfor %}
+      - type: conditional
+        conditions:
+          - entity: media_player.ytube_music_player
+            state: playing
+          - entity: input_boolean.ytube_music_player_show_lyrics
+            state: 'on'
+        card:
+          type: markdown
+          content: '{{ state_attr("sensor.ytube_music_player_extra", "lyrics") }}'
+          title: Letra da Música
+  - title: Camera
+    path: camera
+    icon: mdi:video-wireless
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: menu-back
+              - type: custom:button-card
+                template: menu-name
+                entity: light.luzes_do_quintal
+                name: Cameras
+          - camera_view: live
+            type: picture-glance
+            entities:
+              - entity: light.luzes_do_quintal
+              - entity: switch.portao
+              - entity: light.postes
+              - entity: light.garagem
+              - entity: light.varanda
+              - entity: light.frente
+              - entity: script.fotorua
+            camera_image: camera.rua
+            aspect_ratio: '4:4'
+      - type: vertical-stack
+        cards:
+          - camera_view: live
+            type: picture-glance
+            entities:
+              - entity: light.luzes_do_quintal
+              - entity: switch.portao
+              - entity: light.postes
+              - entity: light.garagem
+              - entity: light.varanda
+              - entity: light.frente
+              - entity: script.fotorua
+            camera_image: camera.varanda_mainstream_2
+            aspect_ratio: '4:4'
+      - type: vertical-stack
+        cards:
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            camera_image: camera.garagem_mainstream
+            entity: camera.garagem_mainstream
+            tap_action:
+              action: call-service
+              service: script.fotogaragem
+              target: {}
+      - show_current: true
+        show_forecast: true
+        type: weather-forecast
+        entity: weather.forecast_pomerode
+        forecast_type: daily
+      - type: grid
+        square: false
+        columns: 1
+        cards:
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.forecast_home
+            forecast_type: daily
+button_card_templates:
+  menu-back:
+    entity: light.todas_as_luzes
+    color_type: icon
+    hold_action:
+      action: none
+    tap_action:
+      action: navigate
+      navigation_path: /lovelace/geral
+    layout: vertical
+    show_label: false
+    show_name: false
+    icon: mdi:keyboard-backspace
+    styles:
+      card:
+        - border-radius: 10px
+        - border: solid 0px var(--primary-color)
+        - width: 50px
+        - height: 50px
+        - box-shadow: none
+        - padding: 3px 3px
+        - margin: 0px 0px
+        - background-color: var(--primary-background-color)
+      icon:
+        - width: 50px
+  menu-name:
+    color_type: icon
+    show_icon: false
+    tap_action:
+      action: toggle
+    layout: vertical
+    show_label: false
+    show_name: true
+    styles:
+      card:
+        - border-radius: 10px
+        - border: solid 0px var(--primary-color)
+        - height: 50px
+        - box-shadow: none
+        - padding: 3px 3px
+        - margin: 0px 0px
+        - background-color: var(--primary-background-color)
+  temperaturas:
+    layout: icon_state_name2nd
+    show_state: true
+    show_label: true
+    styles:
+      grid:
+        - grid-template-areas: '"n i" "s i" "l i"'
+        - grid-template-columns: 1fr 50%
+      card:
+        - padding: 3px 3px
+  luzes:
+    show_label: true
+    hold_action:
+      action: toggle
+    styles:
+      label:
+        - position: relative
+        - text-align: start
+        - justify-self: start
+        - padding-left: 10%
+        - font-size: 10px
+      card:
+        - height: 130px
+        - border-radius: 10px
+      grid:
+        - position: relative
+      img_cell:
+        - align-self: center
+        - text-align: start
+      name:
+        - justify-self: start
+        - padding-left: 10%
+        - font-weight: bold
+        - font-size: 14px
+      icon:
+        - position: absolute
+        - left: 10%
+      custom_fields:
+        a:
+          - position: absolute
+          - left: 65%
+          - top: 10%
+        b:
+          - position: absolute
+          - left: 80%
+          - top: 10%
+        c:
+          - position: absolute
+          - left: 65%
+          - top: 30%
+        d:
+          - position: absolute
+          - left: 80%
+          - top: 30%
+        e:
+          - position: absolute
+          - left: 65%
+          - top: 50%
+        f:
+          - position: absolute
+          - left: 80%
+          - top: 50%
+    state:
+      - value: 'off'
+        styles:
+          card:
+            - filter: opacity(80%)
+      - value: unavailable
+        styles:
+          icon:
+            - color: '#F33'
+            - filter: opacity(50%)
+  luz:
+    show_label: true
+    tap_action:
+      action: toggle
+    styles:
+      card:
+        - border-radius: 10px
+      name:
+        - font-weight: bold
+    state:
+      - value: 'off'
+        styles:
+          card:
+            - filter: opacity(80%)
+      - value: unavailable
+        styles:
+          icon:
+            - color: '#F33'
+            - filter: opacity(50%)
+  switches:
+    show_label: true
+    styles:
+      card:
+        - height: 70px
+      label:
+        - font-size: 12px
+    state:
+      - value: 'off'
+        styles:
+          card:
+            - filter: opacity(80%)
+      - value: unavailable
+        styles:
+          icon:
+            - color: '#F33'
+            - filter: opacity(50%)   
