@@ -16,7 +16,7 @@ input_boolean: !include extras/input_boolean.yaml
 input_select: !include extras/input_select.yaml
 light: !include extras/luzes.yaml
 logger: !include extras/logger.yaml
-media_extractor: #https://www.home-assistant.io/integrations/media_extractor/
+#media_extractor: #https://www.home-assistant.io/integrations/media_extractor/
 media_player: !include extras/media.yaml
 notify: !include extras/notify.yaml
 recorder: !include extras/recorder.yaml
