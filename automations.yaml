@@ -1,5 +1,5 @@
 - id: '1714674909934'
-  alias: Acende luzes ao chegar em casa
+  alias: 'Automação: Acende luzes ao chegar em casa'
   description: ''
   trigger:
   - platform: state
@@ -48,27 +48,28 @@
       minutes: 0
       seconds: 30
       milliseconds: 0
-  - service: light.turn_on
-    data: {}
+  - data: {}
     target:
       entity_id:
       - light.spots
       - light.corredor
+    action: light.turn_on
+  - type: turn_on
+    device_id: 9870321af8067c62ca5b12936982aac2
+    entity_id: 958e5f0b7a03578c593be772f1aa254b
+    domain: switch
   mode: single
 - id: '1714689031964'
-  alias: 'Alerta: Campainha'
-  description: Campainha do portão notifica e toca no nest
+  alias: 'Automação: Campainha'
+  description: 'Campainha do portão: tira foto, notifica celular, toca buzina, avisa
+    no nest'
   trigger:
   - platform: device
     type: turned_on
     device_id: ee576ee7d1c52e536880175f0000a98b
     entity_id: 85be26fd8cab7461f75324b4b7c9055d
     domain: switch
-  condition:
-  - condition: time
-    after: '18:15:00'
-    before: '18:00:00'
-    enabled: false
+  condition: []
   action:
   - if:
     - condition: time
@@ -85,6 +86,7 @@
       - fri
       - sun
       - sat
+      enabled: false
     then:
     - type: turn_on
       device_id: 35df59a7154c445c4b442974abf2af8a
@@ -120,8 +122,8 @@
       entity_id: switch.campainha
   mode: single
 - id: '1714689346594'
-  alias: 'App: Cucko'
-  description: Tocar o cucko durante o dia
+  alias: 'Automação: Cucko'
+  description: Tocar o cucko durante o dia e avisa a cada hora
   trigger:
   - minutes: '00'
     platform: time_pattern
@@ -156,8 +158,9 @@
     service: media_extractor.play_media
   mode: single
 - id: '1714689966561'
-  alias: 'App: Desliga repelente'
-  description: Desliga o repelente
+  alias: 'Automação: Desliga repelente'
+  description: Desliga o repelente de manhã para economizar energia e combustivel
+    de repelente
   trigger:
   - platform: time
     at: input_datetime.tempo_repelente
@@ -171,7 +174,7 @@
       - switch.repelente_icaro
   mode: single
 - id: '1714690068220'
-  alias: 'App: Desliga umidificador'
+  alias: 'Automação: Desliga umidificador'
   description: Desliga umidificador se acima de 70% de umidade
   trigger:
   - above: 70
@@ -195,7 +198,7 @@
     service: switch.turn_off
   mode: restart
 - id: '1714690111139'
-  alias: 'App: Modem desligado'
+  alias: 'Automação: Modem desligado'
   description: Avisa se o modem ficar desligado por mais de 30 segundos e religa
   trigger:
   - entity_id: switch.modem
@@ -214,7 +217,7 @@
       title: Caiu a internet!
   mode: single
 - id: '1714690149518'
-  alias: 'App: Reiniciar modem'
+  alias: 'Automação: Reiniciar modem'
   description: Reinicia modem todo dia de madrugada
   trigger:
   - platform: time
@@ -236,7 +239,7 @@
     data: {}
   mode: single
 - id: '1714690329795'
-  alias: Aquecedor liga luz do banheiro
+  alias: 'Automação: Aquecedor liga luz do banheiro'
   description: Liga Banheiro e Pressurizador quando o Aquecedor é ligado
   trigger:
   - platform: state
@@ -345,8 +348,9 @@
       entity_id: light.luzes_do_atico
   mode: restart
 - id: '1714690833260'
-  alias: 'App: Aviso Calendário'
-  description: Avisa que tem um lembrete de calendário
+  alias: 'Notificação: Aviso de item do Calendário [todo]'
+  description: Avisa que tem um lembrete de calendário. Falta conectar o calendario
+    ao google calendar
   trigger:
   - platform: calendar
     event: start
@@ -371,24 +375,6 @@
     data:
       message: Evento do calendário
   mode: single
-- id: '1714691151308'
-  alias: Calendar Notifications & Actions
-  description: ''
-  use_blueprint:
-    path: Blackshome/calendar-notifications-and-actions.yaml
-    input:
-      calendar: calendar.anniversaries
-      start_action_1:
-      - service: tts.speak
-        data:
-          cache: true
-          media_player_entity_id: media_player.nestcasa
-          message: '{{ trigger.calendar_event.summary }}'
-        target:
-          entity_id: tts.google_pt_com_br
-      include_start_auto_actions:
-      - enable_start_action_1
-      include_start_action_button_confirmation: enable_start_action_button_confirmation
 - id: '1714692639512'
   alias: 'Luz: Desliga tudo de madrugada '
   description: 'Desliga todas as luzes de madrugada '
@@ -412,7 +398,7 @@
       entity_id: switch.led_off
   mode: single
 - id: '1714692806151'
-  alias: Desliga ventilador quando cai temperatura
+  alias: 'Automação: Desliga ventilador quando cai temperatura'
   description: ''
   trigger:
   - platform: state
@@ -520,7 +506,7 @@
     entity_id: light.luzes_do_quintal
   mode: restart
 - id: '1714693529482'
-  alias: 'Notificar: portão aberto'
+  alias: 'Notificação: portão aberto'
   description: Informa se o portão foi acionado
   trigger:
   - entity_id:
@@ -711,7 +697,7 @@
     data: {}
   mode: restart
 - id: '1715135646771'
-  alias: 'Desliga ventilador '
+  alias: 'Automação: Desliga ventilador'
   description: 1h30
   trigger:
   - platform: time
@@ -724,7 +710,7 @@
     domain: fan
   mode: single
 - id: '1715783876497'
-  alias: Fiz Cocô
+  alias: 'Automação: Fiz Cocô'
   description: Registra quando se faz cocô
   trigger:
   - platform: state
@@ -769,7 +755,7 @@
     data: {}
   mode: single
 - id: '1716167942212'
-  alias: O IP Mudou
+  alias: 'Automação: O IP Mudou'
   description: Avisa quando o IP da casa muda
   trigger:
   - platform: state
@@ -788,7 +774,7 @@
       title: MeuIP
   mode: single
 - id: '1716288287502'
-  alias: 'App: Celular Doug carregado '
+  alias: 'Notificação: Celular Doug carregado'
   description: ''
   trigger:
   - platform: state
@@ -802,6 +788,13 @@
   - condition: state
     entity_id: sensor.xrn12pp_battery_state
     state: full
+  - condition: state
+    entity_id: binary_sensor.xrn12pp_device_locked
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   action:
   - service: tts.speak
     metadata: {}
@@ -813,14 +806,13 @@
       entity_id: tts.google_pt_com_br
   mode: single
 - id: '1716313053631'
-  alias: Atualização do HA disponível
-  description: ''
+  alias: 'Notificação: Atualização do HA disponível'
+  description: Envia notificação que existe nova versão
   trigger:
   - platform: state
     entity_id:
     - binary_sensor.home_assistant_versions_update_available
     to: 'on'
-    from: 'off'
   condition: []
   action:
   - service: notify.doug
@@ -830,7 +822,7 @@
       title: UPDATE
   mode: single
 - id: '1716427970514'
-  alias: 'Aviso: HA Reiniciou'
+  alias: 'Notificação: HA Reiniciou'
   description: ''
   trigger:
   - platform: homeassistant
@@ -853,7 +845,7 @@
       title: Aviso!
   mode: single
 - id: '1716487227754'
-  alias: 'App: A lua mudou'
+  alias: 'Notificação: A lua mudou'
   description: ''
   trigger:
   - platform: state
@@ -873,8 +865,8 @@
       title: "\U0001F31A Olhe para o céu!"
   mode: single
 - id: '1716998921539'
-  alias: 'Notifica: Arroz pronto'
-  description: ''
+  alias: 'Notificação: Arroz pronto'
+  description: avisa que o arroz está pronto
   trigger:
   - platform: template
     value_template: '{{states.switch.arrozeira.attributes.current_consumption < 300
@@ -926,8 +918,8 @@
     data: {}
   mode: single
 - id: '1720570111386'
-  alias: Liga pressurizador para lavar roupa
-  description: ''
+  alias: 'Automação: Liga pressurizador'
+  description: Liga pressurizador para lavar roupa
   trigger:
   - platform: state
     entity_id:
@@ -953,7 +945,7 @@
     data: {}
   mode: single
 - id: '1722546640563'
-  alias: Liga a chaleira
+  alias: 'Automação: Liga a chaleira'
   description: Liga a chaleira pela manhã
   trigger:
   - platform: time_pattern
@@ -971,8 +963,8 @@
     domain: switch
   mode: single
 - id: '1722590864592'
-  alias: 'Notifica: água da chaleira ferveu'
-  description: ''
+  alias: 'Notificação: água da chaleira ferveu'
+  description: Envia no nest notificação
   trigger:
   - platform: numeric_state
     entity_id:
@@ -980,10 +972,9 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 15
+      seconds: 5
     attribute: raw_state
-    above: 0
-    below: 300
+    below: 10
   condition:
   - condition: state
     state: 'on'
@@ -1006,35 +997,346 @@
     entity_id: 29487571840c02deb786c1a08541164e
     domain: switch
   mode: single
-- id: '1722599244724'
-  alias: Ju Loc
+- id: '1723476353176'
+  alias: 'Automação: Ligar tv no almoço '
   description: ''
   trigger:
-  - platform: state
+  - platform: time
+    at: '11:50:00'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday
+    state: 'on'
+  action:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: switch.tv_q_power
+    action: switch.toggle
+  - delay:
+      hours: 1
+      minutes: 40
+      seconds: 0
+      milliseconds: 0
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.tv_samsung
+    enabled: true
+  mode: single
+- id: '1723797946906'
+  alias: 'Automação: Desliga pressurizador '
+  description: ''
+  trigger:
+  - platform: time
+    at: 01:00:00
+  condition:
+  - condition: device
+    type: is_off
+    device_id: 255ef4a2b303929b7e237e2f8b2d7779
+    entity_id: 16b966541f8176362aabb113ec0f2f0a
+    domain: light
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  action:
+  - type: turn_off
+    device_id: 9870321af8067c62ca5b12936982aac2
+    entity_id: 958e5f0b7a03578c593be772f1aa254b
+    domain: switch
+  mode: single
+- id: '1724850192284'
+  alias: 'Automação: desligar a cafeteira '
+  description: Envia no nest notificação
+  trigger:
+  - platform: numeric_state
     entity_id:
-    - sensor.rn12pju_geocoded_location
-    to:
+    - sensor.potencia_cafeteira
     for:
       hours: 0
       minutes: 0
-      seconds: 2
+      seconds: 5
+    attribute: raw_state
+    below: 10
   condition:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: sensor.rn12pju_wifi_connection
-      state: Aden
-    enabled: false
-  - condition: template
-    value_template: '{{states.sensor.rn12pju_wifi_connection.state not in [''STRAPASSONPILATES'',
-      ''Aden'', ''Giran'']}}'
+  - condition: state
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    entity_id: switch.cafeteira
+  - condition: state
+    entity_id: input_boolean.fazer_cha
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
   action:
-  - data:
-      data:
-        clickAction: /lovelace/clima
-        push:
-          badge: 1
-      message: '{{states.sensor.rn12pju_geocoded_location.attributes.thoroughfare}},{{states.sensor.rn12pju_geocoded_location.attributes.name}},{{states.sensor.rn12pju_geocoded_location.attributes.sub_locality}}'
-      title: Localização Ju
-    service: notify.doug
+  - metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: A cafeteira terminou de ferver
+    target:
+      entity_id: tts.google_pt_com_br
+    action: tts.speak
+  - type: turn_off
+    device_id: b0606960ec74d23a4537c1706b0a2338
+    entity_id: 712506c9b264c39c1adea3fdb90d677f
+    domain: switch
+  mode: single
+- id: '1724955117240'
+  alias: 'Automação: Panela de pressão '
+  description: Envia no nest notificação
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.potencia_panela_de_pressao
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    attribute: raw_state
+    below: 50
+  condition:
+  - condition: state
+    state: 'on'
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    entity_id: switch.panela_de_pressao
+  action:
+  - metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: Panela desligada depois de uso
+    target:
+      entity_id: tts.google_pt_com_br
+    action: tts.speak
+  - type: turn_off
+    device_id: 94dd321017beed62d15685453051f7bc
+    entity_id: 46a56d61d3a92c96f8566650fa1a445f
+    domain: switch
+    enabled: false
+  - action: notify.doug
+    metadata: {}
+    data:
+      message: Panela de pressão desligada
+      title: Panela
+  mode: single
+- id: '1725245755273'
+  alias: 'Automação: lava louças terminou'
+  description: Envia no nest notificação
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.potencia_lava_loucas
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    attribute: raw_state
+    below: 10
+  condition:
+  - condition: state
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 28
+      seconds: 0
+    entity_id: switch.lava_loucas
+  action:
+  - metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: A louça está lavada. Hora de secar.
+    target:
+      entity_id: tts.google_pt_com_br
+    action: tts.speak
+  - type: turn_off
+    device_id: 3376d904ec92c3fd69928b3df500dea3
+    entity_id: 0d0ba1721ecf4cffd0dc24f9049c7aeb
+    domain: switch
+  mode: single
+- id: '1725288928091'
+  alias: 'Automação: Fazer arroz'
+  description: Liga chaleira e arrozeira
+  trigger:
+  - platform: time
+    at: '12:00:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.fazer_almoco
+    state: 'on'
+  action:
+  - type: turn_on
+    device_id: 71bc212d9ad1be701c356772f92b1fda
+    entity_id: 29487571840c02deb786c1a08541164e
+    domain: switch
+  - type: turn_on
+    device_id: bfb6a76261235d3d4b9d890fbf715c63
+    entity_id: 93f6c0b33c962d18d8795552fde5d4af
+    domain: switch
+  - action: notify.doug
+    metadata: {}
+    data:
+      message: Fazendo arroz
+      title: Atenção!
+  - action: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: O arroz está sendo feito
+    target:
+      entity_id: tts.google_pt_com_br
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.fazer_almoco
+  mode: single
+- id: '1725447527649'
+  alias: 'Rotina: desliga copa de manhã '
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:30:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.visitas
+    state: 'off'
+  - condition: state
+    entity_id: light.copa
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    enabled: false
+  action:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.tv_q_power
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.jantar
+  - type: turn_off
+    device_id: cbd0d026fb9a265145e4b586b61187db
+    entity_id: 3d1957fc475e7d576d8a04a5d9fb2666
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.copa
+  mode: single
+- id: '1725491690763'
+  alias: 'Notifica: lixo reciclável '
+  description: ''
+  trigger:
+  - platform: calendar
+    event: start
+    offset: '8:45:0'
+    entity_id: calendar.home
+  condition: []
+  action:
+  - action: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.nestcasa
+      message: 'Jogar lixo reciclável '
+    target:
+      entity_id: tts.google_pt_com_br
+  mode: single
+- id: '1726005169487'
+  alias: 'Automação: desliga forno depois de 1h30'
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 92c205f0465945202416b85991e852f2
+    entity_id: 49a8da8a63702bce1a734ff02055ef4d
+    domain: switch
+    for:
+      hours: 1
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 92c205f0465945202416b85991e852f2
+    entity_id: 49a8da8a63702bce1a734ff02055ef4d
+    domain: switch
+  - action: notify.doug
+    metadata: {}
+    data:
+      message: O forno desligou depois de 1h30
+      title: Forno desligado!
+  mode: single
+- id: '1726538136638'
+  alias: 'Automação: liga pressurizador de manhã '
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 9870321af8067c62ca5b12936982aac2
+    entity_id: 958e5f0b7a03578c593be772f1aa254b
+    domain: switch
+  mode: single
+- id: '1727174221041'
+  alias: 'Rotina: 7h10 acende luzes'
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:10:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday
+    state: 'on'
+  action:
+  - type: turn_on
+    device_id: 04b4ff627584835f55420dc7ca50ce3c
+    entity_id: 3e09fc4099efd21acc4406fcfc0a084e
+    domain: light
+  - type: turn_on
+    device_id: 9994315320d9d2c9a05749766eb8d5d6
+    entity_id: 9cdd066ca23cd43a3fccbceab0c7ae7d
+    domain: light
+  mode: single
+- id: '1727226318476'
+  alias: 'Automação: fazer chá '
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:05:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.fazer_cha
+    state: 'on'
+  action:
+  - type: turn_on
+    device_id: b0606960ec74d23a4537c1706b0a2338
+    entity_id: 712506c9b264c39c1adea3fdb90d677f
+    domain: switch
   mode: single
