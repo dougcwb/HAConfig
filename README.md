@@ -2,7 +2,6 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Zigbee](https://img.shields.io/badge/zigbee-%23EB0443.svg?style=for-the-badge&logo=zigbee&logoColor=white)
 
-
 # Home Assitant
 My own home automation system powered by [https://www.home-assistant.io/](https://www.home-assistant.io/)
 
