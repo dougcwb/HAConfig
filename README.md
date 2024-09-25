@@ -1,9 +1,17 @@
-# Assitentants
+![Home Assistant](https://img.shields.io/badge/home%20assistant-%2341BDF5.svg?style=for-the-badge&logo=home-assistant&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Zigbee](https://img.shields.io/badge/zigbee-%23EB0443.svg?style=for-the-badge&logo=zigbee&logoColor=white)
+
+
+# Home Assitant
+My own home automation system powered by [https://www.home-assistant.io/](https://www.home-assistant.io/)
+
+## Assitentants
 - Google Home Nest Mini (2º generation) [Integration](https://www.home-assistant.io/integrations/google_assistant/)
 - ~~ Kit Rasberry Pi 4b + Case + SSD Kigston 120GB USB + Fonte 5V 3A (retired)~~
 - MLLSE-Mini PC Intel Celeron, CPU N3350, 6 GB de RAM, ROM 64 GB, WiFi, Bluetooth 4.2
 
-# Switches
+## Switches
 - SONOFF® Mini DIY - Switch Treeway [Integration](https://github.com/AlexxIT/SonoffLAN)
 - SONOFF® RF R2 - Switch RF [Integration](https://github.com/AlexxIT/SonoffLAN)
 - SONOFF® RF R3 - Switch RF [Integration](https://github.com/AlexxIT/SonoffLAN)
@@ -14,37 +22,37 @@
 - Tuya Basic Wi-fi 10A [Integration](https://www.home-assistant.io/integrations/tuya/)
 - Tuya Mini Smatrul 10A [Integration](https://www.home-assistant.io/integrations/tuya/)
 
-# Hubs
+## Hubs
 - SONOFF® RF Bridge 433Mhz [Integration](https://github.com/AlexxIT/SonoffLAN)
 - SONOFF® ZBBridge - Smart Zigbee Bridge [Integration](https://github.com/AlexxIT/SonoffLAN)
 
-# Sensors
+## Sensors
 - SONOFF® PIR2 Wireless Infrared Detector [Integration](https://github.com/AlexxIT/SonoffLAN)
 - SONOFF® SNZB-02 - ZigBee Temperature And Humidity Sensor [Integration](https://github.com/AlexxIT/SonoffLAN)
 - SONOFF® SNZB-04 - ZigBee Wireless Door/Window Sensor [Integration](https://github.com/AlexxIT/SonoffLAN)
 - Xiaomi Mijia BLE MiBeacon Monitor LYWSD03MMC (quadrado) - Temperature and humidity Bluetooth Sensor [Integration](https://github.com/custom-components/ble_monitor)
 
-# IR Controllers
+## IR Controllers
 - Broadlink IR RM4C BestCon EU - Infrared universal controller (2x) - [Integration](https://www.home-assistant.io/integrations/broadlink/)
 - Universal Tuya Wifi-IR controller (2.4Ghz) 
 
-# Lights
+## Lights
 - LED strip RGBWW 5050 15m HomeMagic - [Integration](https://www.home-assistant.io/integrations/flux/) / [Fix](https://github.com/CorneliousJD/flux_led)
 
-# Devices
+## Devices
 - iLife V7s Plus - Robot
 - Router Xiaomi Ax1800 Mesh Wifi6 5-Core (2x)
 
-# Others
+## Others
 - SONOFF® IP66 - Rain protector
 
-# Integrations
+## Integrations
 - [HACS](https://hacs.xyz/docs/installation/manual): Addon Manager
 - [Youtube Music](https://github.com/KoljaWindeler/ytube_music_player): Music Player
 - [SonoffLAN](https://github.com/AlexxIT/SonoffLAN) Ewelink software
 - [LocalTuya](https://github.com/rospogrigio/localtuya)
 
-# Plataforms & Softwares
+## Plataforms & Softwares
 - [Ubuntu OS Server](https://ubuntu.com/) OS Server
 - [CasaOS](https://www.casaos.io/) Personal Cloud running on Docker
 - [Docker](https://www.docker.com/) 
@@ -54,5 +62,5 @@
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - Samba Share - Compartilhamento de arquivos em rede Windows
 
-# Folder Structure
+## Folder Structure
 Almost all YAML files for configurations and personalization are inside the EXTRAS folder.
