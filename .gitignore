@@ -1,27 +1,55 @@
-# FODLERS
-backups
-blueprints
-custom_components
-deps
-tts
-www
-image
-
-# FILES
-.bash_history
-.cache
+### HomeAssistant ###
+# Files with personal details
+*.crt
+*.csr
+*.key
 .cloud
-.local
+.cache
+.google.token
+.HA_VERSION
 .storage
+.bash_history
+.local
 .shopping_list.json
-
-# DATABASES
-*.db
-
-# SECRETS
+.uuid
+icloud/
+google_calendars.yaml
+harmony_media_room.conf
+home-assistant.db
+home-assistant_v2.db
+home-assistant_v2.db-*
+html5_push_registrations.conf
+image
+ip_bans.yaml
+known_devices.yaml
+phue.conf
+plex.conf
+pyozw.sqlite
 secrets.yaml
+tradfri.conf
+webostv.conf
 
-# LOGS
+# Temporary files
+*.db-journal
+*.pid
+tts
+
+# automatically downloaded dependencies
+deps
+lib
+
+# Log files
+ozw_log.txt
 *.log
 *.log.fault
 *.log.1
+
+# Development files
+custom_components
+
+# Custom
+backups
+blueprints
+deps
+tts
+www
